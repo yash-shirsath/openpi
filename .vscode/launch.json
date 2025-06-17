@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Serve DROID Policy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/serve_policy.py",
+            "args": [
+                "--env",
+                "DROID"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
