@@ -1,0 +1,966 @@
+{
+  "gemma": {
+    "module_name": "gemma",
+    "configurations": [
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 8388608,
+          "qkv_memory_bytes": 25165824,
+          "attention_matrix_memory_bytes": 33554432,
+          "output_memory_bytes": 8388608,
+          "kv_cache_memory_bytes": 16777216,
+          "total_theoretical_bytes": 92274688,
+          "total_theoretical_mb": 88.0,
+          "attention_matrix_dominance": 0.36363636363636365
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            4.13600355386734e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 1,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 8388608,
+          "qkv_memory_bytes": 25165824,
+          "attention_matrix_memory_bytes": 33554432,
+          "output_memory_bytes": 8388608,
+          "kv_cache_memory_bytes": 16777216,
+          "total_theoretical_bytes": 92274688,
+          "total_theoretical_mb": 88.0,
+          "attention_matrix_dominance": 0.36363636363636365
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            3.091990947723389e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 1,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 8,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 33554432,
+          "qkv_memory_bytes": 100663296,
+          "attention_matrix_memory_bytes": 134217728,
+          "output_memory_bytes": 33554432,
+          "kv_cache_memory_bytes": 67108864,
+          "total_theoretical_bytes": 369098752,
+          "total_theoretical_mb": 352.0,
+          "attention_matrix_dominance": 0.36363636363636365
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.0051375031471252e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 4,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 33554432,
+          "qkv_memory_bytes": 100663296,
+          "attention_matrix_memory_bytes": 134217728,
+          "output_memory_bytes": 33554432,
+          "kv_cache_memory_bytes": 67108864,
+          "total_theoretical_bytes": 369098752,
+          "total_theoretical_mb": 352.0,
+          "attention_matrix_dominance": 0.36363636363636365
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            1.6041100025177002e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 4,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 8,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 16777216,
+          "qkv_memory_bytes": 50331648,
+          "attention_matrix_memory_bytes": 134217728,
+          "output_memory_bytes": 16777216,
+          "kv_cache_memory_bytes": 33554432,
+          "total_theoretical_bytes": 251658240,
+          "total_theoretical_mb": 240.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.3292377591133118e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 1,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 16777216,
+          "qkv_memory_bytes": 50331648,
+          "attention_matrix_memory_bytes": 134217728,
+          "output_memory_bytes": 16777216,
+          "kv_cache_memory_bytes": 33554432,
+          "total_theoretical_bytes": 251658240,
+          "total_theoretical_mb": 240.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.312473952770233e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 1,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 8,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 67108864,
+          "qkv_memory_bytes": 201326592,
+          "attention_matrix_memory_bytes": 536870912,
+          "output_memory_bytes": 67108864,
+          "kv_cache_memory_bytes": 134217728,
+          "total_theoretical_bytes": 1006632960,
+          "total_theoretical_mb": 960.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.288632094860077e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 4,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 67108864,
+          "qkv_memory_bytes": 201326592,
+          "attention_matrix_memory_bytes": 536870912,
+          "output_memory_bytes": 67108864,
+          "kv_cache_memory_bytes": 134217728,
+          "total_theoretical_bytes": 1006632960,
+          "total_theoretical_mb": 960.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.5238841772079468e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 4,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 8,
+        "head_dim": 256,
+        "width": 8192
+      }
+    ],
+    "memory_scaling": {
+      "sequence_length_scaling": {
+        "seq_lens": [
+          512,
+          1024
+        ],
+        "actual_memory_mb": [
+          0.0,
+          0.0
+        ],
+        "theoretical_memory_mb": [
+          220.0,
+          600.0
+        ],
+        "actual_scaling_exponent": null,
+        "theoretical_scaling_exponent": null,
+        "expected_quadratic": null
+      }
+    },
+    "peak_memory_analysis": {
+      "peak_memory_stats": {
+        "max_peak_mb": 0.0,
+        "min_peak_mb": 0.0,
+        "mean_peak_mb": 0.0,
+        "std_peak_mb": 0.0
+      },
+      "memory_breakdown": {
+        "attention_matrix_dominance": 0.4484848484848485,
+        "largest_attention_matrix_mb": 512.0,
+        "attention_memory_ratio": Infinity
+      },
+      "bottleneck_analysis": {
+        "memory_bound_threshold_mb": 1000,
+        "memory_bound_configs": 0,
+        "attention_dominant_configs": 4
+      }
+    }
+  },
+  "gemma_fast": {
+    "module_name": "gemma_fast",
+    "configurations": [
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 8388608,
+          "qkv_memory_bytes": 25165824,
+          "attention_matrix_memory_bytes": 33554432,
+          "output_memory_bytes": 8388608,
+          "kv_cache_memory_bytes": 16777216,
+          "total_theoretical_bytes": 92274688,
+          "total_theoretical_mb": 88.0,
+          "attention_matrix_dominance": 0.36363636363636365
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.220645546913147e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 1,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 8388608,
+          "qkv_memory_bytes": 25165824,
+          "attention_matrix_memory_bytes": 33554432,
+          "output_memory_bytes": 8388608,
+          "kv_cache_memory_bytes": 16777216,
+          "total_theoretical_bytes": 92274688,
+          "total_theoretical_mb": 88.0,
+          "attention_matrix_dominance": 0.36363636363636365
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.028048038482666e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 1,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 8,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 33554432,
+          "qkv_memory_bytes": 100663296,
+          "attention_matrix_memory_bytes": 134217728,
+          "output_memory_bytes": 33554432,
+          "kv_cache_memory_bytes": 67108864,
+          "total_theoretical_bytes": 369098752,
+          "total_theoretical_mb": 352.0,
+          "attention_matrix_dominance": 0.36363636363636365
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            1.603737473487854e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 4,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 33554432,
+          "qkv_memory_bytes": 100663296,
+          "attention_matrix_memory_bytes": 134217728,
+          "output_memory_bytes": 33554432,
+          "kv_cache_memory_bytes": 67108864,
+          "total_theoretical_bytes": 369098752,
+          "total_theoretical_mb": 352.0,
+          "attention_matrix_dominance": 0.36363636363636365
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.1228566765785217e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 4,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 8,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 16777216,
+          "qkv_memory_bytes": 50331648,
+          "attention_matrix_memory_bytes": 134217728,
+          "output_memory_bytes": 16777216,
+          "kv_cache_memory_bytes": 33554432,
+          "total_theoretical_bytes": 251658240,
+          "total_theoretical_mb": 240.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.7399510145187378e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 1,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 16777216,
+          "qkv_memory_bytes": 50331648,
+          "attention_matrix_memory_bytes": 134217728,
+          "output_memory_bytes": 16777216,
+          "kv_cache_memory_bytes": 33554432,
+          "total_theoretical_bytes": 251658240,
+          "total_theoretical_mb": 240.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            1.5849247574806213e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 1,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 8,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 67108864,
+          "qkv_memory_bytes": 201326592,
+          "attention_matrix_memory_bytes": 536870912,
+          "output_memory_bytes": 67108864,
+          "kv_cache_memory_bytes": 134217728,
+          "total_theoretical_bytes": 1006632960,
+          "total_theoretical_mb": 960.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            2.096407115459442e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 4,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192
+      },
+      {
+        "baseline_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "final_memory": {
+          "total_memory": 0.0,
+          "used_memory": 0.0,
+          "available_memory": 0.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 67108864,
+          "qkv_memory_bytes": 201326592,
+          "attention_matrix_memory_bytes": 536870912,
+          "output_memory_bytes": 67108864,
+          "kv_cache_memory_bytes": 134217728,
+          "total_theoretical_bytes": 1006632960,
+          "total_theoretical_mb": 960.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.0,
+          "overhead_bytes": 0,
+          "overhead_mb": 0.0,
+          "overhead_ratio": 0.0
+        },
+        "profile_data": {
+          "timestamps": [
+            1.595914363861084e-05
+          ],
+          "memory_usage_bytes": [
+            0.0
+          ],
+          "memory_usage_mb": [
+            0.0
+          ],
+          "peak_memory_bytes": 0,
+          "peak_memory_mb": 0.0,
+          "average_memory_bytes": 0,
+          "average_memory_mb": 0.0,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        },
+        "batch_size": 4,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 8,
+        "head_dim": 256,
+        "width": 8192
+      }
+    ],
+    "memory_scaling": {
+      "sequence_length_scaling": {
+        "seq_lens": [
+          512,
+          1024
+        ],
+        "actual_memory_mb": [
+          0.0,
+          0.0
+        ],
+        "theoretical_memory_mb": [
+          220.0,
+          600.0
+        ],
+        "actual_scaling_exponent": null,
+        "theoretical_scaling_exponent": null,
+        "expected_quadratic": null
+      }
+    },
+    "peak_memory_analysis": {
+      "peak_memory_stats": {
+        "max_peak_mb": 0.0,
+        "min_peak_mb": 0.0,
+        "mean_peak_mb": 0.0,
+        "std_peak_mb": 0.0
+      },
+      "memory_breakdown": {
+        "attention_matrix_dominance": 0.4484848484848485,
+        "largest_attention_matrix_mb": 512.0,
+        "attention_memory_ratio": Infinity
+      },
+      "bottleneck_analysis": {
+        "memory_bound_threshold_mb": 1000,
+        "memory_bound_configs": 0,
+        "attention_dominant_configs": 4
+      }
+    }
+  }
+}
