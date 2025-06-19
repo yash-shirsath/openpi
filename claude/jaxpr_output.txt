@@ -1,0 +1,4476 @@
+let remainder = { lambda ; a:i32[2] b:i32[]. let
+    c:bool[] = eq b 0
+    d:i32[] = pjit[
+      name=_where
+      jaxpr={ lambda ; c:bool[] e:i32[] b:i32[]. let
+          d:i32[] = select_n c b e
+        in (d,) }
+    ] c 1 b
+    f:i32[2] = rem a d
+    g:bool[2] = ne f 0
+    h:bool[2] = lt f 0
+    i:bool[] = lt d 0
+    j:bool[2] = ne h i
+    k:bool[2] = and j g
+    l:i32[2] = add f d
+    m:i32[2] = select_n k f l
+  in (m,) } in
+let _where = { lambda ; c:bool[] e:i32[] b:i32[]. let
+    d:i32[] = select_n c b e
+  in (d,) } in
+let _pad = { lambda ; n:bf16[2,1018,1,256] o:i32[]. let
+    p:bf16[] = convert_element_type[new_dtype=bfloat16 weak_type=False] o
+    q:bf16[2,1274,1,256] = pad[
+      padding_config=((0, 0, 0), (0, 256, 0), (0, 0, 0), (0, 0, 0))
+    ] n p
+  in (q,) } in
+{ lambda r:f32[1152] s:f32[1152] t:f32[27,1152] u:f32[27,1152] v:f32[27,1152] w:f32[27,1152]
+    x:f32[27,4304] y:f32[27,1152,4304] z:f32[27,1152] ba:f32[27,4304,1152] bb:f32[27,16,72]
+    bc:f32[27,1152,16,72] bd:f32[27,1152] be:f32[27,16,72,1152] bf:f32[27,16,72]
+    bg:f32[27,1152,16,72] bh:f32[27,16,72] bi:f32[27,1152,16,72] bj:f32[1152] bk:f32[14,14,3,1152]
+    bl:f32[2048] bm:f32[1152,2048] bn:f32[1,256,1152] bo:f32[257152,2048] bp:f32[2048]
+    bq:f32[18,8,256,2048] br:f32[18,2,1,2048,256] bs:f32[18,8,2048,256] bt:f32[18,2,2048,16384]
+    bu:f32[18,16384,2048] bv:f32[18,2048] bw:f32[18,2048]; bx:key<fry>[] by:f32[2,224,224,3]
+    bz:f32[2,224,224,3] ca:f32[2,224,224,3] cb:bool[2] cc:bool[2] cd:bool[2] ce:f32[2,32]
+    cf:i32[2,250] cg:bool[2,250] ch:i32[2,250] ci:bool[2,250]. let
+    cj:f32[2,256] = pjit[
+      name=fun
+      jaxpr={ lambda ; r:f32[1152] s:f32[1152] t:f32[27,1152] u:f32[27,1152] v:f32[27,1152]
+          w:f32[27,1152] x:f32[27,4304] y:f32[27,1152,4304] z:f32[27,1152] ba:f32[27,4304,1152]
+          bb:f32[27,16,72] bc:f32[27,1152,16,72] bd:f32[27,1152] be:f32[27,16,72,1152]
+          bf:f32[27,16,72] bg:f32[27,1152,16,72] bh:f32[27,16,72] bi:f32[27,1152,16,72]
+          bj:f32[1152] bk:f32[14,14,3,1152] bl:f32[2048] bm:f32[1152,2048] bn:f32[1,256,1152]
+          bo:f32[257152,2048] bp:f32[2048] bq:f32[18,8,256,2048] br:f32[18,2,1,2048,256]
+          bs:f32[18,8,2048,256] bt:f32[18,2,2048,16384] bu:f32[18,16384,2048] bv:f32[18,2048]
+          bw:f32[18,2048] bx:key<fry>[] by:f32[2,224,224,3] bz:f32[2,224,224,3] ca:f32[2,224,224,3]
+          cb:bool[2] cc:bool[2] cd:bool[2] ce:f32[2,32] cf:i32[2,250] cg:bool[2,250]
+          ch:i32[2,250] ci:bool[2,250]. let
+          ck:f32[2,16,16,1152] = conv_general_dilated[
+            batch_group_count=1
+            dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+            feature_group_count=1
+            lhs_dilation=(1, 1)
+            padding=((0, 0), (0, 0))
+            precision=None
+            preferred_element_type=None
+            rhs_dilation=(1, 1)
+            window_strides=(14, 14)
+          ] by bk
+          cl:f32[1,1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1, 1152)
+            sharding=None
+          ] bj
+          cm:f32[2,16,16,1152] = add ck cl
+          cn:f32[2,256,1152] = reshape[
+            dimensions=None
+            new_sizes=(2, 256, 1152)
+            sharding=None
+          ] cm
+          co:f32[2,256,1152] = add cn bn
+          cp:bf16[2,256,1152] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] co
+          cq:bf16[2,256,1152] cr:bf16[27,2,256,1152] cs:bf16[27,2,256,1152] ct:bf16[27,2,256,1152]
+            cu:bf16[27,2,256,1152] = scan[
+            _split_transpose=False
+            jaxpr={ lambda ; cv:bf16[2,256,1152] cw:f32[1152] cx:f32[1152] cy:f32[1152]
+                cz:f32[1152] da:f32[4304] db:f32[1152,4304] dc:f32[1152] dd:f32[4304,1152]
+                de:f32[16,72] df:f32[1152,16,72] dg:f32[1152] dh:f32[16,72,1152]
+                di:f32[16,72] dj:f32[1152,16,72] dk:f32[16,72] dl:f32[1152,16,72]. let
+                dm:bf16[2,256,1152] dn:bf16[2,256,1152] do:bf16[2,256,1152] dp:bf16[2,256,1152]
+                  dq:bf16[2,256,1152] = remat2[
+                  differentiated=False
+                  jaxpr={ lambda ; dr:f32[1152] ds:f32[1152] dt:f32[1152] du:f32[1152]
+                      dv:f32[4304] dw:f32[1152,4304] dx:f32[1152] dy:f32[4304,1152]
+                      dz:f32[16,72] ea:f32[1152,16,72] eb:f32[1152] ec:f32[16,72,1152]
+                      ed:f32[16,72] ee:f32[1152,16,72] ef:f32[16,72] eg:f32[1152,16,72]
+                      eh:bf16[2,256,1152]. let
+                      ei:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] eh
+                      ej:f32[2,256,1152] = square ei
+                      ek:f32[2,256] = reduce_sum[axes=(2,)] ei
+                      el:f32[2,256] = div ek 1152.0
+                      em:f32[2,256] = reduce_sum[axes=(2,)] ej
+                      en:f32[2,256] = div em 1152.0
+                      eo:f32[2,256] = square el
+                      ep:f32[2,256] = sub en eo
+                      eq:f32[2,256] = max 0.0 ep
+                      er:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] el
+                      es:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] eq
+                      et:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] eh
+                      eu:f32[2,256,1152] = sub et er
+                      ev:f32[2,256,1] = add es 9.999999974752427e-07
+                      ew:f32[2,256,1] = rsqrt ev
+                      ex:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] ds
+                      ey:f32[2,256,1152] = mul ew ex
+                      ez:f32[2,256,1152] = mul eu ey
+                      fa:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] dr
+                      fb:f32[2,256,1152] = add ez fa
+                      fc:bf16[2,256,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] fb
+                      fd:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ee
+                      fe:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ed
+                      ff:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] fc fd
+                      fg:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] fe
+                      fh:bf16[2,256,16,72] = add ff fg
+                      fi:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ea
+                      fj:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] dz
+                      fk:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] fc fi
+                      fl:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] fj
+                      fm:bf16[2,256,16,72] = add fk fl
+                      fn:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] eg
+                      fo:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ef
+                      fp:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] fc fn
+                      fq:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] fo
+                      fr:bf16[2,256,16,72] = add fp fq
+                      fs:f32[] = sqrt 72.0
+                      ft:bf16[] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] fs
+                      fu:bf16[2,256,16,72] = div fh ft
+                      fv:bf16[2,16,256,256] = dot_general[
+                        dimension_numbers=(([3], [3]), ([0, 2], [0, 2]))
+                        preferred_element_type=bfloat16
+                      ] fu fm
+                      fw:bf16[2,16,256] = reduce_max[axes=(3,)] fv
+                      fx:bf16[2,16,256] = max -inf fw
+                      fy:bf16[2,16,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 2)
+                        shape=(2, 16, 256, 1)
+                        sharding=None
+                      ] fx
+                      fz:bf16[2,16,256,1] = stop_gradient fy
+                      ga:bf16[2,16,256,256] = sub fv fz
+                      gb:bf16[2,16,256,256] = exp ga
+                      gc:f32[2,16,256,256] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] gb
+                      gd:f32[2,16,256] = reduce_sum[axes=(3,)] gc
+                      ge:f32[2,16,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 2)
+                        shape=(2, 16, 256, 1)
+                        sharding=None
+                      ] gd
+                      gf:bf16[2,16,256,1] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ge
+                      gg:bf16[2,16,256,256] = div gb gf
+                      gh:bf16[2,16,72,256] = dot_general[
+                        dimension_numbers=(([1], [3]), ([0, 2], [0, 1]))
+                        preferred_element_type=bfloat16
+                      ] fr gg
+                      gi:bf16[2,256,16,72] = transpose[permutation=(0, 3, 1, 2)] gh
+                      gj:bf16[16,72,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ec
+                      gk:bf16[1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] eb
+                      gl:bf16[2,256,1152] = dot_general[
+                        dimension_numbers=(([2, 3], [0, 1]), ([], []))
+                      ] gi gj
+                      gm:bf16[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] gk
+                      gn:bf16[2,256,1152] = add gl gm
+                      go:bf16[2,256,1152] = add eh gn
+                      gp:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] go
+                      gq:f32[2,256,1152] = square gp
+                      gr:f32[2,256] = reduce_sum[axes=(2,)] gp
+                      gs:f32[2,256] = div gr 1152.0
+                      gt:f32[2,256] = reduce_sum[axes=(2,)] gq
+                      gu:f32[2,256] = div gt 1152.0
+                      gv:f32[2,256] = square gs
+                      gw:f32[2,256] = sub gu gv
+                      gx:f32[2,256] = max 0.0 gw
+                      gy:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] gs
+                      gz:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] gx
+                      ha:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] go
+                      hb:f32[2,256,1152] = sub ha gy
+                      hc:f32[2,256,1] = add gz 9.999999974752427e-07
+                      hd:f32[2,256,1] = rsqrt hc
+                      he:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] du
+                      hf:f32[2,256,1152] = mul hd he
+                      hg:f32[2,256,1152] = mul hb hf
+                      hh:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] dt
+                      hi:f32[2,256,1152] = add hg hh
+                      hj:bf16[2,256,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] hi
+                      hk:bf16[1152,4304] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] dw
+                      hl:bf16[4304] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] dv
+                      hm:bf16[2,256,4304] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] hj hk
+                      hn:bf16[1,1,4304] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 4304)
+                        sharding=None
+                      ] hl
+                      ho:bf16[2,256,4304] = add hm hn
+                      hp:bf16[2,256,4304] = integer_pow[y=3] ho
+                      hq:bf16[2,256,4304] = mul 0.0446777 hp
+                      hr:bf16[2,256,4304] = add ho hq
+                      hs:bf16[2,256,4304] = mul 0.796875 hr
+                      ht:bf16[2,256,4304] = tanh hs
+                      hu:bf16[2,256,4304] = add 1 ht
+                      hv:bf16[2,256,4304] = mul 0.5 hu
+                      hw:bf16[2,256,4304] = mul ho hv
+                      hx:bf16[4304,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] dy
+                      hy:bf16[1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] dx
+                      hz:bf16[2,256,1152] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] hw hx
+                      ia:bf16[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] hy
+                      ib:bf16[2,256,1152] = add hz ia
+                      ic:bf16[2,256,1152] = add go ib
+                    in (ic, ic, go, ib, gn) }
+                  policy=<function nothing_saveable at 0x7661fcdedda0>
+                  prevent_cse=False
+                ] cw cx cy cz da db dc dd de df dg dh di dj dk dl cv
+              in (dm, dn, do, dp, dq) }
+            length=27
+            linear=(False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False)
+            num_carry=1
+            num_consts=0
+            reverse=False
+            unroll=1
+          ] cp t u v w x y z ba bb bc bd be bf bg bh bi
+          id:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] id
+          ie:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ie
+          if:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] if
+          ig:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ig
+          ih:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ih
+          ii:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ii
+          ij:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ij
+          ik:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ik
+          il:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] il
+          im:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] im
+          in:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] in
+          io:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] io
+          ip:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ip
+          iq:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] iq
+          ir:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ir
+          is:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] is
+          it:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] it
+          iu:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] iu
+          iv:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] iv
+          iw:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] iw
+          ix:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ix
+          iy:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] iy
+          iz:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] iz
+          ja:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ja
+          jb:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jb
+          jc:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jc
+          jd:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jd
+          je:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] je
+          jf:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jf
+          jg:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jg
+          jh:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jh
+          ji:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ji
+          jj:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jj
+          jk:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jk
+          jl:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jl
+          jm:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jm
+          jn:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jn
+          jo:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jo
+          jp:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jp
+          jq:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jq
+          jr:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jr
+          js:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] js
+          jt:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jt
+          ju:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ju
+          jv:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jv
+          jw:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jw
+          jx:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jx
+          jy:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jy
+          jz:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] jz
+          ka:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ka
+          kb:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kb
+          kc:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kc
+          kd:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kd
+          ke:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ke
+          kf:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kf
+          kg:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kg
+          kh:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kh
+          ki:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ki
+          kj:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kj
+          kk:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kk
+          kl:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kl
+          km:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] km
+          kn:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kn
+          ko:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ko
+          kp:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kp
+          kq:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kq
+          kr:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kr
+          ks:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ks
+          kt:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kt
+          ku:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ku
+          kv:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kv
+          kw:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kw
+          kx:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kx
+          ky:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ky
+          kz:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] kz
+          la:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] la
+          lb:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lb
+          lc:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lc
+          ld:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ld
+          le:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] le
+          lf:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lf
+          lg:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lg
+          lh:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lh
+          li:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] li
+          lj:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lj
+          lk:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lk
+          ll:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ll
+          lm:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lm
+          ln:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ln
+          lo:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lo
+          lp:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lp
+          lq:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lq
+          lr:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lr
+          ls:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ls
+          lt:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lt
+          lu:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lu
+          lv:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lv
+          lw:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lw
+          lx:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lx
+          ly:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ly
+          lz:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] lz
+          ma:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ma
+          mb:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] mb
+          mc:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] mc
+          md:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] cr
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] md
+          me:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] cs
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] me
+          mf:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] ct
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] mf
+          mg:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] cu
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] mg
+          mh:f32[2,256,1152] = convert_element_type[
+            new_dtype=float32
+            weak_type=False
+          ] cq
+          mi:f32[2,256,1152] = square mh
+          mj:f32[2,256] = reduce_sum[axes=(2,)] mh
+          mk:f32[2,256] = div mj 1152.0
+          ml:f32[2,256] = reduce_sum[axes=(2,)] mi
+          mm:f32[2,256] = div ml 1152.0
+          mn:f32[2,256] = square mk
+          mo:f32[2,256] = sub mm mn
+          mp:f32[2,256] = max 0.0 mo
+          mq:f32[2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 256, 1)
+            sharding=None
+          ] mk
+          mr:f32[2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 256, 1)
+            sharding=None
+          ] mp
+          ms:f32[2,256,1152] = convert_element_type[
+            new_dtype=float32
+            weak_type=False
+          ] cq
+          mt:f32[2,256,1152] = sub ms mq
+          mu:f32[2,256,1] = add mr 9.999999974752427e-07
+          mv:f32[2,256,1] = rsqrt mu
+          mw:f32[1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1152)
+            sharding=None
+          ] s
+          mx:f32[2,256,1152] = mul mv mw
+          my:f32[2,256,1152] = mul mt mx
+          mz:f32[1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1152)
+            sharding=None
+          ] r
+          na:f32[2,256,1152] = add my mz
+          nb:bf16[2,256,1152] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] na
+          nc:bf16[2,16,16,1152] = reshape[
+            dimensions=None
+            new_sizes=(2, 16, 16, 1152)
+            sharding=None
+          ] nb
+          nd:bf16[1152,2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bm
+          ne:bf16[2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bl
+          nf:bf16[2,16,16,2048] = dot_general[
+            dimension_numbers=(([3], [0]), ([], []))
+          ] nc nd
+          ng:bf16[1,1,1,2048] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1, 2048)
+            sharding=None
+          ] ne
+          _:bf16[2,16,16,2048] = add nf ng
+          nh:bf16[1152,2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bm
+          ni:bf16[2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bl
+          nj:bf16[2,256,2048] = dot_general[
+            dimension_numbers=(([2], [0]), ([], []))
+          ] nb nh
+          nk:bf16[1,1,2048] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 2048)
+            sharding=None
+          ] ni
+          nl:bf16[2,256,2048] = add nj nk
+          nm:bool[2,1] = broadcast_in_dim[
+            broadcast_dimensions=(0,)
+            shape=(2, 1)
+            sharding=None
+          ] cb
+          nn:bool[1,2,1,1] = reshape[
+            dimensions=None
+            new_sizes=(1, 2, 1, 1)
+            sharding=None
+          ] nm
+          no:bool[1,2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1, 2, 3)
+            shape=(1, 2, 256, 1)
+            sharding=None
+          ] nn
+          np:bool[2,256] = reshape[
+            dimensions=None
+            new_sizes=(2, 256)
+            sharding=None
+          ] no
+          nq:i32[2,256] = convert_element_type[new_dtype=int32 weak_type=True] np
+          nr:i32[2,256] = mul 0 nq
+          ns:f32[2,16,16,1152] = conv_general_dilated[
+            batch_group_count=1
+            dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+            feature_group_count=1
+            lhs_dilation=(1, 1)
+            padding=((0, 0), (0, 0))
+            precision=None
+            preferred_element_type=None
+            rhs_dilation=(1, 1)
+            window_strides=(14, 14)
+          ] bz bk
+          nt:f32[1,1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1, 1152)
+            sharding=None
+          ] bj
+          nu:f32[2,16,16,1152] = add ns nt
+          nv:f32[2,256,1152] = reshape[
+            dimensions=None
+            new_sizes=(2, 256, 1152)
+            sharding=None
+          ] nu
+          nw:f32[2,256,1152] = add nv bn
+          nx:bf16[2,256,1152] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] nw
+          ny:bf16[2,256,1152] nz:bf16[27,2,256,1152] oa:bf16[27,2,256,1152] ob:bf16[27,2,256,1152]
+            oc:bf16[27,2,256,1152] = scan[
+            _split_transpose=False
+            jaxpr={ lambda ; od:bf16[2,256,1152] oe:f32[1152] of:f32[1152] og:f32[1152]
+                oh:f32[1152] oi:f32[4304] oj:f32[1152,4304] ok:f32[1152] ol:f32[4304,1152]
+                om:f32[16,72] on:f32[1152,16,72] oo:f32[1152] op:f32[16,72,1152]
+                oq:f32[16,72] or:f32[1152,16,72] os:f32[16,72] ot:f32[1152,16,72]. let
+                ou:bf16[2,256,1152] ov:bf16[2,256,1152] ow:bf16[2,256,1152] ox:bf16[2,256,1152]
+                  oy:bf16[2,256,1152] = remat2[
+                  differentiated=False
+                  jaxpr={ lambda ; oz:f32[1152] pa:f32[1152] pb:f32[1152] pc:f32[1152]
+                      pd:f32[4304] pe:f32[1152,4304] pf:f32[1152] pg:f32[4304,1152]
+                      ph:f32[16,72] pi:f32[1152,16,72] pj:f32[1152] pk:f32[16,72,1152]
+                      pl:f32[16,72] pm:f32[1152,16,72] pn:f32[16,72] po:f32[1152,16,72]
+                      pp:bf16[2,256,1152]. let
+                      pq:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] pp
+                      pr:f32[2,256,1152] = square pq
+                      ps:f32[2,256] = reduce_sum[axes=(2,)] pq
+                      pt:f32[2,256] = div ps 1152.0
+                      pu:f32[2,256] = reduce_sum[axes=(2,)] pr
+                      pv:f32[2,256] = div pu 1152.0
+                      pw:f32[2,256] = square pt
+                      px:f32[2,256] = sub pv pw
+                      py:f32[2,256] = max 0.0 px
+                      pz:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] pt
+                      qa:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] py
+                      qb:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] pp
+                      qc:f32[2,256,1152] = sub qb pz
+                      qd:f32[2,256,1] = add qa 9.999999974752427e-07
+                      qe:f32[2,256,1] = rsqrt qd
+                      qf:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] pa
+                      qg:f32[2,256,1152] = mul qe qf
+                      qh:f32[2,256,1152] = mul qc qg
+                      qi:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] oz
+                      qj:f32[2,256,1152] = add qh qi
+                      qk:bf16[2,256,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] qj
+                      ql:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pm
+                      qm:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pl
+                      qn:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] qk ql
+                      qo:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] qm
+                      qp:bf16[2,256,16,72] = add qn qo
+                      qq:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pi
+                      qr:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ph
+                      qs:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] qk qq
+                      qt:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] qr
+                      qu:bf16[2,256,16,72] = add qs qt
+                      qv:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] po
+                      qw:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pn
+                      qx:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] qk qv
+                      qy:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] qw
+                      qz:bf16[2,256,16,72] = add qx qy
+                      ra:f32[] = sqrt 72.0
+                      rb:bf16[] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ra
+                      rc:bf16[2,256,16,72] = div qp rb
+                      rd:bf16[2,16,256,256] = dot_general[
+                        dimension_numbers=(([3], [3]), ([0, 2], [0, 2]))
+                        preferred_element_type=bfloat16
+                      ] rc qu
+                      re:bf16[2,16,256] = reduce_max[axes=(3,)] rd
+                      rf:bf16[2,16,256] = max -inf re
+                      rg:bf16[2,16,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 2)
+                        shape=(2, 16, 256, 1)
+                        sharding=None
+                      ] rf
+                      rh:bf16[2,16,256,1] = stop_gradient rg
+                      ri:bf16[2,16,256,256] = sub rd rh
+                      rj:bf16[2,16,256,256] = exp ri
+                      rk:f32[2,16,256,256] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] rj
+                      rl:f32[2,16,256] = reduce_sum[axes=(3,)] rk
+                      rm:f32[2,16,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 2)
+                        shape=(2, 16, 256, 1)
+                        sharding=None
+                      ] rl
+                      rn:bf16[2,16,256,1] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] rm
+                      ro:bf16[2,16,256,256] = div rj rn
+                      rp:bf16[2,16,72,256] = dot_general[
+                        dimension_numbers=(([1], [3]), ([0, 2], [0, 1]))
+                        preferred_element_type=bfloat16
+                      ] qz ro
+                      rq:bf16[2,256,16,72] = transpose[permutation=(0, 3, 1, 2)] rp
+                      rr:bf16[16,72,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pk
+                      rs:bf16[1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pj
+                      rt:bf16[2,256,1152] = dot_general[
+                        dimension_numbers=(([2, 3], [0, 1]), ([], []))
+                      ] rq rr
+                      ru:bf16[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] rs
+                      rv:bf16[2,256,1152] = add rt ru
+                      rw:bf16[2,256,1152] = add pp rv
+                      rx:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] rw
+                      ry:f32[2,256,1152] = square rx
+                      rz:f32[2,256] = reduce_sum[axes=(2,)] rx
+                      sa:f32[2,256] = div rz 1152.0
+                      sb:f32[2,256] = reduce_sum[axes=(2,)] ry
+                      sc:f32[2,256] = div sb 1152.0
+                      sd:f32[2,256] = square sa
+                      se:f32[2,256] = sub sc sd
+                      sf:f32[2,256] = max 0.0 se
+                      sg:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] sa
+                      sh:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] sf
+                      si:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] rw
+                      sj:f32[2,256,1152] = sub si sg
+                      sk:f32[2,256,1] = add sh 9.999999974752427e-07
+                      sl:f32[2,256,1] = rsqrt sk
+                      sm:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] pc
+                      sn:f32[2,256,1152] = mul sl sm
+                      so:f32[2,256,1152] = mul sj sn
+                      sp:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] pb
+                      sq:f32[2,256,1152] = add so sp
+                      sr:bf16[2,256,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] sq
+                      ss:bf16[1152,4304] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pe
+                      st:bf16[4304] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pd
+                      su:bf16[2,256,4304] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] sr ss
+                      sv:bf16[1,1,4304] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 4304)
+                        sharding=None
+                      ] st
+                      sw:bf16[2,256,4304] = add su sv
+                      sx:bf16[2,256,4304] = integer_pow[y=3] sw
+                      sy:bf16[2,256,4304] = mul 0.0446777 sx
+                      sz:bf16[2,256,4304] = add sw sy
+                      ta:bf16[2,256,4304] = mul 0.796875 sz
+                      tb:bf16[2,256,4304] = tanh ta
+                      tc:bf16[2,256,4304] = add 1 tb
+                      td:bf16[2,256,4304] = mul 0.5 tc
+                      te:bf16[2,256,4304] = mul sw td
+                      tf:bf16[4304,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pg
+                      tg:bf16[1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] pf
+                      th:bf16[2,256,1152] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] te tf
+                      ti:bf16[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] tg
+                      tj:bf16[2,256,1152] = add th ti
+                      tk:bf16[2,256,1152] = add rw tj
+                    in (tk, tk, rw, tj, rv) }
+                  policy=<function nothing_saveable at 0x7661fcdedda0>
+                  prevent_cse=False
+                ] oe of og oh oi oj ok ol om on oo op oq or os ot od
+              in (ou, ov, ow, ox, oy) }
+            length=27
+            linear=(False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False)
+            num_carry=1
+            num_consts=0
+            reverse=False
+            unroll=1
+          ] nx t u v w x y z ba bb bc bd be bf bg bh bi
+          tl:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tl
+          tm:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tm
+          tn:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tn
+          to:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] to
+          tp:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tp
+          tq:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tq
+          tr:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tr
+          ts:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ts
+          tt:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tt
+          tu:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tu
+          tv:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tv
+          tw:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tw
+          tx:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tx
+          ty:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ty
+          tz:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] tz
+          ua:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ua
+          ub:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ub
+          uc:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uc
+          ud:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ud
+          ue:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ue
+          uf:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uf
+          ug:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ug
+          uh:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uh
+          ui:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ui
+          uj:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uj
+          uk:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uk
+          ul:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ul
+          um:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] um
+          un:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] un
+          uo:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uo
+          up:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] up
+          uq:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uq
+          ur:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ur
+          us:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] us
+          ut:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ut
+          uu:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uu
+          uv:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uv
+          uw:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uw
+          ux:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ux
+          uy:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uy
+          uz:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] uz
+          va:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] va
+          vb:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vb
+          vc:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vc
+          vd:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vd
+          ve:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ve
+          vf:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vf
+          vg:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vg
+          vh:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vh
+          vi:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vi
+          vj:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vj
+          vk:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vk
+          vl:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vl
+          vm:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vm
+          vn:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vn
+          vo:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vo
+          vp:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vp
+          vq:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vq
+          vr:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vr
+          vs:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vs
+          vt:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vt
+          vu:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vu
+          vv:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vv
+          vw:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vw
+          vx:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vx
+          vy:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vy
+          vz:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] vz
+          wa:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wa
+          wb:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wb
+          wc:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wc
+          wd:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wd
+          we:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] we
+          wf:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wf
+          wg:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wg
+          wh:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wh
+          wi:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wi
+          wj:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wj
+          wk:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wk
+          wl:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wl
+          wm:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wm
+          wn:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wn
+          wo:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wo
+          wp:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wp
+          wq:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wq
+          wr:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wr
+          ws:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ws
+          wt:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wt
+          wu:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wu
+          wv:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wv
+          ww:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] ww
+          wx:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wx
+          wy:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wy
+          wz:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] wz
+          xa:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xa
+          xb:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xb
+          xc:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xc
+          xd:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xd
+          xe:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xe
+          xf:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xf
+          xg:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xg
+          xh:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xh
+          xi:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xi
+          xj:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xj
+          xk:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xk
+          xl:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] nz
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xl
+          xm:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] oa
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xm
+          xn:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] ob
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xn
+          xo:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] oc
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] xo
+          xp:f32[2,256,1152] = convert_element_type[
+            new_dtype=float32
+            weak_type=False
+          ] ny
+          xq:f32[2,256,1152] = square xp
+          xr:f32[2,256] = reduce_sum[axes=(2,)] xp
+          xs:f32[2,256] = div xr 1152.0
+          xt:f32[2,256] = reduce_sum[axes=(2,)] xq
+          xu:f32[2,256] = div xt 1152.0
+          xv:f32[2,256] = square xs
+          xw:f32[2,256] = sub xu xv
+          xx:f32[2,256] = max 0.0 xw
+          xy:f32[2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 256, 1)
+            sharding=None
+          ] xs
+          xz:f32[2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 256, 1)
+            sharding=None
+          ] xx
+          ya:f32[2,256,1152] = convert_element_type[
+            new_dtype=float32
+            weak_type=False
+          ] ny
+          yb:f32[2,256,1152] = sub ya xy
+          yc:f32[2,256,1] = add xz 9.999999974752427e-07
+          yd:f32[2,256,1] = rsqrt yc
+          ye:f32[1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1152)
+            sharding=None
+          ] s
+          yf:f32[2,256,1152] = mul yd ye
+          yg:f32[2,256,1152] = mul yb yf
+          yh:f32[1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1152)
+            sharding=None
+          ] r
+          yi:f32[2,256,1152] = add yg yh
+          yj:bf16[2,256,1152] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] yi
+          yk:bf16[2,16,16,1152] = reshape[
+            dimensions=None
+            new_sizes=(2, 16, 16, 1152)
+            sharding=None
+          ] yj
+          yl:bf16[1152,2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bm
+          ym:bf16[2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bl
+          yn:bf16[2,16,16,2048] = dot_general[
+            dimension_numbers=(([3], [0]), ([], []))
+          ] yk yl
+          yo:bf16[1,1,1,2048] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1, 2048)
+            sharding=None
+          ] ym
+          _:bf16[2,16,16,2048] = add yn yo
+          yp:bf16[1152,2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bm
+          yq:bf16[2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bl
+          yr:bf16[2,256,2048] = dot_general[
+            dimension_numbers=(([2], [0]), ([], []))
+          ] yj yp
+          ys:bf16[1,1,2048] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 2048)
+            sharding=None
+          ] yq
+          yt:bf16[2,256,2048] = add yr ys
+          yu:bool[2,1] = broadcast_in_dim[
+            broadcast_dimensions=(0,)
+            shape=(2, 1)
+            sharding=None
+          ] cc
+          yv:bool[1,2,1,1] = reshape[
+            dimensions=None
+            new_sizes=(1, 2, 1, 1)
+            sharding=None
+          ] yu
+          yw:bool[1,2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1, 2, 3)
+            shape=(1, 2, 256, 1)
+            sharding=None
+          ] yv
+          yx:bool[2,256] = reshape[
+            dimensions=None
+            new_sizes=(2, 256)
+            sharding=None
+          ] yw
+          yy:i32[2,256] = convert_element_type[new_dtype=int32 weak_type=True] yx
+          yz:i32[2,256] = mul 0 yy
+          za:f32[2,16,16,1152] = conv_general_dilated[
+            batch_group_count=1
+            dimension_numbers=ConvDimensionNumbers(lhs_spec=(0, 3, 1, 2), rhs_spec=(3, 2, 0, 1), out_spec=(0, 3, 1, 2))
+            feature_group_count=1
+            lhs_dilation=(1, 1)
+            padding=((0, 0), (0, 0))
+            precision=None
+            preferred_element_type=None
+            rhs_dilation=(1, 1)
+            window_strides=(14, 14)
+          ] ca bk
+          zb:f32[1,1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1, 1152)
+            sharding=None
+          ] bj
+          zc:f32[2,16,16,1152] = add za zb
+          zd:f32[2,256,1152] = reshape[
+            dimensions=None
+            new_sizes=(2, 256, 1152)
+            sharding=None
+          ] zc
+          ze:f32[2,256,1152] = add zd bn
+          zf:bf16[2,256,1152] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] ze
+          zg:bf16[2,256,1152] zh:bf16[27,2,256,1152] zi:bf16[27,2,256,1152] zj:bf16[27,2,256,1152]
+            zk:bf16[27,2,256,1152] = scan[
+            _split_transpose=False
+            jaxpr={ lambda ; zl:bf16[2,256,1152] zm:f32[1152] zn:f32[1152] zo:f32[1152]
+                zp:f32[1152] zq:f32[4304] zr:f32[1152,4304] zs:f32[1152] zt:f32[4304,1152]
+                zu:f32[16,72] zv:f32[1152,16,72] zw:f32[1152] zx:f32[16,72,1152]
+                zy:f32[16,72] zz:f32[1152,16,72] baa:f32[16,72] bab:f32[1152,16,72]. let
+                bac:bf16[2,256,1152] bad:bf16[2,256,1152] bae:bf16[2,256,1152] baf:bf16[2,256,1152]
+                  bag:bf16[2,256,1152] = remat2[
+                  differentiated=False
+                  jaxpr={ lambda ; bah:f32[1152] bai:f32[1152] baj:f32[1152] bak:f32[1152]
+                      bal:f32[4304] bam:f32[1152,4304] ban:f32[1152] bao:f32[4304,1152]
+                      bap:f32[16,72] baq:f32[1152,16,72] bar:f32[1152] bas:f32[16,72,1152]
+                      bat:f32[16,72] bau:f32[1152,16,72] bav:f32[16,72] baw:f32[1152,16,72]
+                      bax:bf16[2,256,1152]. let
+                      bay:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bax
+                      baz:f32[2,256,1152] = square bay
+                      bba:f32[2,256] = reduce_sum[axes=(2,)] bay
+                      bbb:f32[2,256] = div bba 1152.0
+                      bbc:f32[2,256] = reduce_sum[axes=(2,)] baz
+                      bbd:f32[2,256] = div bbc 1152.0
+                      bbe:f32[2,256] = square bbb
+                      bbf:f32[2,256] = sub bbd bbe
+                      bbg:f32[2,256] = max 0.0 bbf
+                      bbh:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] bbb
+                      bbi:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] bbg
+                      bbj:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bax
+                      bbk:f32[2,256,1152] = sub bbj bbh
+                      bbl:f32[2,256,1] = add bbi 9.999999974752427e-07
+                      bbm:f32[2,256,1] = rsqrt bbl
+                      bbn:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] bai
+                      bbo:f32[2,256,1152] = mul bbm bbn
+                      bbp:f32[2,256,1152] = mul bbk bbo
+                      bbq:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] bah
+                      bbr:f32[2,256,1152] = add bbp bbq
+                      bbs:bf16[2,256,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bbr
+                      bbt:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bau
+                      bbu:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bat
+                      bbv:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] bbs bbt
+                      bbw:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] bbu
+                      bbx:bf16[2,256,16,72] = add bbv bbw
+                      bby:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] baq
+                      bbz:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bap
+                      bca:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] bbs bby
+                      bcb:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] bbz
+                      bcc:bf16[2,256,16,72] = add bca bcb
+                      bcd:bf16[1152,16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] baw
+                      bce:bf16[16,72] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bav
+                      bcf:bf16[2,256,16,72] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] bbs bcd
+                      bcg:bf16[1,1,16,72] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 16, 72)
+                        sharding=None
+                      ] bce
+                      bch:bf16[2,256,16,72] = add bcf bcg
+                      bci:f32[] = sqrt 72.0
+                      bcj:bf16[] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bci
+                      bck:bf16[2,256,16,72] = div bbx bcj
+                      bcl:bf16[2,16,256,256] = dot_general[
+                        dimension_numbers=(([3], [3]), ([0, 2], [0, 2]))
+                        preferred_element_type=bfloat16
+                      ] bck bcc
+                      bcm:bf16[2,16,256] = reduce_max[axes=(3,)] bcl
+                      bcn:bf16[2,16,256] = max -inf bcm
+                      bco:bf16[2,16,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 2)
+                        shape=(2, 16, 256, 1)
+                        sharding=None
+                      ] bcn
+                      bcp:bf16[2,16,256,1] = stop_gradient bco
+                      bcq:bf16[2,16,256,256] = sub bcl bcp
+                      bcr:bf16[2,16,256,256] = exp bcq
+                      bcs:f32[2,16,256,256] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bcr
+                      bct:f32[2,16,256] = reduce_sum[axes=(3,)] bcs
+                      bcu:f32[2,16,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 2)
+                        shape=(2, 16, 256, 1)
+                        sharding=None
+                      ] bct
+                      bcv:bf16[2,16,256,1] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bcu
+                      bcw:bf16[2,16,256,256] = div bcr bcv
+                      bcx:bf16[2,16,72,256] = dot_general[
+                        dimension_numbers=(([1], [3]), ([0, 2], [0, 1]))
+                        preferred_element_type=bfloat16
+                      ] bch bcw
+                      bcy:bf16[2,256,16,72] = transpose[
+                        permutation=(0, 3, 1, 2)
+                      ] bcx
+                      bcz:bf16[16,72,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bas
+                      bda:bf16[1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bar
+                      bdb:bf16[2,256,1152] = dot_general[
+                        dimension_numbers=(([2, 3], [0, 1]), ([], []))
+                      ] bcy bcz
+                      bdc:bf16[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] bda
+                      bdd:bf16[2,256,1152] = add bdb bdc
+                      bde:bf16[2,256,1152] = add bax bdd
+                      bdf:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bde
+                      bdg:f32[2,256,1152] = square bdf
+                      bdh:f32[2,256] = reduce_sum[axes=(2,)] bdf
+                      bdi:f32[2,256] = div bdh 1152.0
+                      bdj:f32[2,256] = reduce_sum[axes=(2,)] bdg
+                      bdk:f32[2,256] = div bdj 1152.0
+                      bdl:f32[2,256] = square bdi
+                      bdm:f32[2,256] = sub bdk bdl
+                      bdn:f32[2,256] = max 0.0 bdm
+                      bdo:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] bdi
+                      bdp:f32[2,256,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 256, 1)
+                        sharding=None
+                      ] bdn
+                      bdq:f32[2,256,1152] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bde
+                      bdr:f32[2,256,1152] = sub bdq bdo
+                      bds:f32[2,256,1] = add bdp 9.999999974752427e-07
+                      bdt:f32[2,256,1] = rsqrt bds
+                      bdu:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] bak
+                      bdv:f32[2,256,1152] = mul bdt bdu
+                      bdw:f32[2,256,1152] = mul bdr bdv
+                      bdx:f32[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] baj
+                      bdy:f32[2,256,1152] = add bdw bdx
+                      bdz:bf16[2,256,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bdy
+                      bea:bf16[1152,4304] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bam
+                      beb:bf16[4304] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bal
+                      bec:bf16[2,256,4304] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] bdz bea
+                      bed:bf16[1,1,4304] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 4304)
+                        sharding=None
+                      ] beb
+                      bee:bf16[2,256,4304] = add bec bed
+                      bef:bf16[2,256,4304] = integer_pow[y=3] bee
+                      beg:bf16[2,256,4304] = mul 0.0446777 bef
+                      beh:bf16[2,256,4304] = add bee beg
+                      bei:bf16[2,256,4304] = mul 0.796875 beh
+                      bej:bf16[2,256,4304] = tanh bei
+                      bek:bf16[2,256,4304] = add 1 bej
+                      bel:bf16[2,256,4304] = mul 0.5 bek
+                      bem:bf16[2,256,4304] = mul bee bel
+                      ben:bf16[4304,1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bao
+                      beo:bf16[1152] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] ban
+                      bep:bf16[2,256,1152] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                      ] bem ben
+                      beq:bf16[1,1,1152] = reshape[
+                        dimensions=None
+                        new_sizes=(1, 1, 1152)
+                        sharding=None
+                      ] beo
+                      ber:bf16[2,256,1152] = add bep beq
+                      bes:bf16[2,256,1152] = add bde ber
+                    in (bes, bes, bde, ber, bdd) }
+                  policy=<function nothing_saveable at 0x7661fcdedda0>
+                  prevent_cse=False
+                ] zm zn zo zp zq zr zs zt zu zv zw zx zy zz baa bab zl
+              in (bac, bad, bae, baf, bag) }
+            length=27
+            linear=(False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False, False)
+            num_carry=1
+            num_consts=0
+            reverse=False
+            unroll=1
+          ] zf t u v w x y z ba bb bc bd be bf bg bh bi
+          bet:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bet
+          beu:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] beu
+          bev:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bev
+          bew:bf16[1,2,256,1152] = slice[
+            limit_indices=(1, 2, 256, 1152)
+            start_indices=(0, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bew
+          bex:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bex
+          bey:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bey
+          bez:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bez
+          bfa:bf16[1,2,256,1152] = slice[
+            limit_indices=(2, 2, 256, 1152)
+            start_indices=(1, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfa
+          bfb:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfb
+          bfc:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfc
+          bfd:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfd
+          bfe:bf16[1,2,256,1152] = slice[
+            limit_indices=(3, 2, 256, 1152)
+            start_indices=(2, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfe
+          bff:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bff
+          bfg:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfg
+          bfh:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfh
+          bfi:bf16[1,2,256,1152] = slice[
+            limit_indices=(4, 2, 256, 1152)
+            start_indices=(3, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfi
+          bfj:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfj
+          bfk:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfk
+          bfl:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfl
+          bfm:bf16[1,2,256,1152] = slice[
+            limit_indices=(5, 2, 256, 1152)
+            start_indices=(4, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfm
+          bfn:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfn
+          bfo:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfo
+          bfp:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfp
+          bfq:bf16[1,2,256,1152] = slice[
+            limit_indices=(6, 2, 256, 1152)
+            start_indices=(5, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfq
+          bfr:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfr
+          bfs:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfs
+          bft:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bft
+          bfu:bf16[1,2,256,1152] = slice[
+            limit_indices=(7, 2, 256, 1152)
+            start_indices=(6, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfu
+          bfv:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfv
+          bfw:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfw
+          bfx:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfx
+          bfy:bf16[1,2,256,1152] = slice[
+            limit_indices=(8, 2, 256, 1152)
+            start_indices=(7, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfy
+          bfz:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bfz
+          bga:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bga
+          bgb:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgb
+          bgc:bf16[1,2,256,1152] = slice[
+            limit_indices=(9, 2, 256, 1152)
+            start_indices=(8, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgc
+          bgd:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgd
+          bge:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bge
+          bgf:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgf
+          bgg:bf16[1,2,256,1152] = slice[
+            limit_indices=(10, 2, 256, 1152)
+            start_indices=(9, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgg
+          bgh:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgh
+          bgi:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgi
+          bgj:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgj
+          bgk:bf16[1,2,256,1152] = slice[
+            limit_indices=(11, 2, 256, 1152)
+            start_indices=(10, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgk
+          bgl:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgl
+          bgm:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgm
+          bgn:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgn
+          bgo:bf16[1,2,256,1152] = slice[
+            limit_indices=(12, 2, 256, 1152)
+            start_indices=(11, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgo
+          bgp:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgp
+          bgq:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgq
+          bgr:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgr
+          bgs:bf16[1,2,256,1152] = slice[
+            limit_indices=(13, 2, 256, 1152)
+            start_indices=(12, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgs
+          bgt:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgt
+          bgu:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgu
+          bgv:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgv
+          bgw:bf16[1,2,256,1152] = slice[
+            limit_indices=(14, 2, 256, 1152)
+            start_indices=(13, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgw
+          bgx:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgx
+          bgy:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgy
+          bgz:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bgz
+          bha:bf16[1,2,256,1152] = slice[
+            limit_indices=(15, 2, 256, 1152)
+            start_indices=(14, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bha
+          bhb:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhb
+          bhc:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhc
+          bhd:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhd
+          bhe:bf16[1,2,256,1152] = slice[
+            limit_indices=(16, 2, 256, 1152)
+            start_indices=(15, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhe
+          bhf:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhf
+          bhg:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhg
+          bhh:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhh
+          bhi:bf16[1,2,256,1152] = slice[
+            limit_indices=(17, 2, 256, 1152)
+            start_indices=(16, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhi
+          bhj:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhj
+          bhk:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhk
+          bhl:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhl
+          bhm:bf16[1,2,256,1152] = slice[
+            limit_indices=(18, 2, 256, 1152)
+            start_indices=(17, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhm
+          bhn:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhn
+          bho:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bho
+          bhp:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhp
+          bhq:bf16[1,2,256,1152] = slice[
+            limit_indices=(19, 2, 256, 1152)
+            start_indices=(18, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhq
+          bhr:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhr
+          bhs:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhs
+          bht:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bht
+          bhu:bf16[1,2,256,1152] = slice[
+            limit_indices=(20, 2, 256, 1152)
+            start_indices=(19, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhu
+          bhv:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhv
+          bhw:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhw
+          bhx:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhx
+          bhy:bf16[1,2,256,1152] = slice[
+            limit_indices=(21, 2, 256, 1152)
+            start_indices=(20, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhy
+          bhz:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bhz
+          bia:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bia
+          bib:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bib
+          bic:bf16[1,2,256,1152] = slice[
+            limit_indices=(22, 2, 256, 1152)
+            start_indices=(21, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bic
+          bid:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bid
+          bie:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bie
+          bif:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bif
+          big:bf16[1,2,256,1152] = slice[
+            limit_indices=(23, 2, 256, 1152)
+            start_indices=(22, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] big
+          bih:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bih
+          bii:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bii
+          bij:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bij
+          bik:bf16[1,2,256,1152] = slice[
+            limit_indices=(24, 2, 256, 1152)
+            start_indices=(23, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bik
+          bil:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bil
+          bim:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bim
+          bin:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bin
+          bio:bf16[1,2,256,1152] = slice[
+            limit_indices=(25, 2, 256, 1152)
+            start_indices=(24, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bio
+          bip:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bip
+          biq:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] biq
+          bir:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bir
+          bis:bf16[1,2,256,1152] = slice[
+            limit_indices=(26, 2, 256, 1152)
+            start_indices=(25, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bis
+          bit:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] zh
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] bit
+          biu:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] zi
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] biu
+          biv:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] zj
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] biv
+          biw:bf16[1,2,256,1152] = slice[
+            limit_indices=(27, 2, 256, 1152)
+            start_indices=(26, 0, 0, 0)
+            strides=None
+          ] zk
+          _:bf16[2,256,1152] = squeeze[dimensions=(0,)] biw
+          bix:f32[2,256,1152] = convert_element_type[
+            new_dtype=float32
+            weak_type=False
+          ] zg
+          biy:f32[2,256,1152] = square bix
+          biz:f32[2,256] = reduce_sum[axes=(2,)] bix
+          bja:f32[2,256] = div biz 1152.0
+          bjb:f32[2,256] = reduce_sum[axes=(2,)] biy
+          bjc:f32[2,256] = div bjb 1152.0
+          bjd:f32[2,256] = square bja
+          bje:f32[2,256] = sub bjc bjd
+          bjf:f32[2,256] = max 0.0 bje
+          bjg:f32[2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 256, 1)
+            sharding=None
+          ] bja
+          bjh:f32[2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 256, 1)
+            sharding=None
+          ] bjf
+          bji:f32[2,256,1152] = convert_element_type[
+            new_dtype=float32
+            weak_type=False
+          ] zg
+          bjj:f32[2,256,1152] = sub bji bjg
+          bjk:f32[2,256,1] = add bjh 9.999999974752427e-07
+          bjl:f32[2,256,1] = rsqrt bjk
+          bjm:f32[1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1152)
+            sharding=None
+          ] s
+          bjn:f32[2,256,1152] = mul bjl bjm
+          bjo:f32[2,256,1152] = mul bjj bjn
+          bjp:f32[1,1,1152] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1152)
+            sharding=None
+          ] r
+          bjq:f32[2,256,1152] = add bjo bjp
+          bjr:bf16[2,256,1152] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bjq
+          bjs:bf16[2,16,16,1152] = reshape[
+            dimensions=None
+            new_sizes=(2, 16, 16, 1152)
+            sharding=None
+          ] bjr
+          bjt:bf16[1152,2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bm
+          bju:bf16[2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bl
+          bjv:bf16[2,16,16,2048] = dot_general[
+            dimension_numbers=(([3], [0]), ([], []))
+          ] bjs bjt
+          bjw:bf16[1,1,1,2048] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 1, 2048)
+            sharding=None
+          ] bju
+          _:bf16[2,16,16,2048] = add bjv bjw
+          bjx:bf16[1152,2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bm
+          bjy:bf16[2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bl
+          bjz:bf16[2,256,2048] = dot_general[
+            dimension_numbers=(([2], [0]), ([], []))
+          ] bjr bjx
+          bka:bf16[1,1,2048] = reshape[
+            dimensions=None
+            new_sizes=(1, 1, 2048)
+            sharding=None
+          ] bjy
+          bkb:bf16[2,256,2048] = add bjz bka
+          bkc:bool[2,1] = broadcast_in_dim[
+            broadcast_dimensions=(0,)
+            shape=(2, 1)
+            sharding=None
+          ] cd
+          bkd:bool[1,2,1,1] = reshape[
+            dimensions=None
+            new_sizes=(1, 2, 1, 1)
+            sharding=None
+          ] bkc
+          bke:bool[1,2,256,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1, 2, 3)
+            shape=(1, 2, 256, 1)
+            sharding=None
+          ] bkd
+          bkf:bool[2,256] = reshape[
+            dimensions=None
+            new_sizes=(2, 256)
+            sharding=None
+          ] bke
+          bkg:i32[2,256] = convert_element_type[new_dtype=int32 weak_type=True] bkf
+          bkh:i32[2,256] = mul 0 bkg
+          bki:bool[2,250] = lt cf 0
+          bkj:i32[2,250] = add cf 257152
+          bkk:i32[2,250] = select_n bki cf bkj
+          bkl:i32[2,250,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 250, 1)
+            sharding=None
+          ] bkk
+          bkm:f32[2,250,2048] = gather[
+            dimension_numbers=GatherDimensionNumbers(offset_dims=(2,), collapsed_slice_dims=(0,), start_index_map=(0,), operand_batching_dims=(), start_indices_batching_dims=())
+            fill_value=None
+            indices_are_sorted=False
+            mode=GatherScatterMode.PROMISE_IN_BOUNDS
+            slice_sizes=(1, 2048)
+            unique_indices=False
+          ] bo bkl
+          bkn:f32[] = sqrt 2048.0
+          bko:f32[] = convert_element_type[new_dtype=float32 weak_type=False] bkn
+          bkp:f32[2,250,2048] = mul bkm bko
+          bkq:bf16[2,250,2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bkp
+          bkr:bf16[2,1018,2048] = concatenate[dimension=1] nl yt bkb bkq
+          bks:bool[2,1018] = concatenate[dimension=1] np yx bkf cg
+          bkt:i32[2,256] = convert_element_type[new_dtype=int32 weak_type=False] nr
+          bku:i32[2,256] = convert_element_type[new_dtype=int32 weak_type=False] yz
+          bkv:i32[2,256] = convert_element_type[new_dtype=int32 weak_type=False] bkh
+          bkw:i32[2,1018] = concatenate[dimension=1] bkt bku bkv ch
+          bkx:i32[2,1018] = pjit[
+            name=cumsum
+            jaxpr={ lambda ; bkw:i32[2,1018]. let
+                bkx:i32[2,1018] = cumsum[axis=1 reverse=False] bkw
+              in (bkx,) }
+          ] bkw
+          bky:i32[2,1,1018] = broadcast_in_dim[
+            broadcast_dimensions=(0, 2)
+            shape=(2, 1, 1018)
+            sharding=None
+          ] bkx
+          bkz:i32[2,1018,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 1018, 1)
+            sharding=None
+          ] bkx
+          bla:bool[2,1018,1018] = le bky bkz
+          blb:bool[2,1,1018] = broadcast_in_dim[
+            broadcast_dimensions=(0, 2)
+            shape=(2, 1, 1018)
+            sharding=None
+          ] bks
+          blc:bool[2,1018,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 1018, 1)
+            sharding=None
+          ] bks
+          bld:bool[2,1018,1018] = and blb blc
+          ble:bool[2,1018,1018] = and bla bld
+          blf:i32[1018] = iota[
+            dimension=0
+            dtype=int32
+            shape=(1018,)
+            sharding=None
+          ] 
+          blg:i32[2,1018] = convert_element_type[
+            new_dtype=int32
+            weak_type=False
+          ] bks
+          blh:i32[1,1018] = broadcast_in_dim[
+            broadcast_dimensions=(1,)
+            shape=(1, 1018)
+            sharding=None
+          ] blf
+          bli:i32[2,1018] = mul blg blh
+          blj:i32[2] = reduce_max[axes=(1,)] bli
+          blk:i32[2] = add blj 1
+          bll:i32[2] = neg blk
+          blm:bf16[2,1018,2048] = pjit[
+            name=_roll_dynamic
+            jaxpr={ lambda ; bkr:bf16[2,1018,2048] bll:i32[2]. let
+                bln:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 1)
+                  sharding=None
+                ] bll
+                blo:i32[2,1] = slice[
+                  limit_indices=(2, 1)
+                  start_indices=(0, 0)
+                  strides=(1, 1)
+                ] bln
+                blp:i32[2] = squeeze[dimensions=(1,)] blo
+                blq:i32[] = max 1018 1
+                blr:i32[2] = pjit[name=remainder jaxpr=remainder] blp blq
+                bls:bf16[2,2036,2048] = concatenate[dimension=1] bkr bkr
+                blt:i32[2] = sub 1018 blr
+                blu:bool[2] = lt blt 0
+                blv:i32[2] = add blt 2036
+                blw:i32[2] = select_n blu blt blv
+                blx:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 1)
+                  sharding=None
+                ] blw
+                bly:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=()
+                  shape=(2, 1)
+                  sharding=None
+                ] 0
+                blz:i32[2,2] = concatenate[dimension=1] blx bly
+                blm:bf16[2,1018,2048] = gather[
+                  dimension_numbers=GatherDimensionNumbers(offset_dims=(1, 2), collapsed_slice_dims=(), start_index_map=(1, 2), operand_batching_dims=(0,), start_indices_batching_dims=(0,))
+                  fill_value=None
+                  indices_are_sorted=True
+                  mode=GatherScatterMode.PROMISE_IN_BOUNDS
+                  slice_sizes=(1, 1018, 2048)
+                  unique_indices=True
+                ] bls blz
+              in (blm,) }
+          ] bkr bll
+          bma:i32[2] = neg blk
+          bmb:bool[2,1018] = pjit[
+            name=_roll_dynamic
+            jaxpr={ lambda ; bks:bool[2,1018] bma:i32[2]. let
+                bmc:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 1)
+                  sharding=None
+                ] bma
+                bmd:i32[2,1] = slice[
+                  limit_indices=(2, 1)
+                  start_indices=(0, 0)
+                  strides=(1, 1)
+                ] bmc
+                bme:i32[2] = squeeze[dimensions=(1,)] bmd
+                bmf:i32[] = max 1018 1
+                bmg:i32[2] = pjit[name=remainder jaxpr=remainder] bme bmf
+                bmh:bool[2,2036] = concatenate[dimension=1] bks bks
+                bmi:i32[2] = sub 1018 bmg
+                bmj:bool[2] = lt bmi 0
+                bmk:i32[2] = add bmi 2036
+                bml:i32[2] = select_n bmj bmi bmk
+                bmm:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 1)
+                  sharding=None
+                ] bml
+                bmb:bool[2,1018] = gather[
+                  dimension_numbers=GatherDimensionNumbers(offset_dims=(1,), collapsed_slice_dims=(), start_index_map=(1,), operand_batching_dims=(0,), start_indices_batching_dims=(0,))
+                  fill_value=None
+                  indices_are_sorted=True
+                  mode=GatherScatterMode.PROMISE_IN_BOUNDS
+                  slice_sizes=(1, 1018)
+                  unique_indices=True
+                ] bmh bmm
+              in (bmb,) }
+          ] bks bma
+          bmn:i32[2] = neg blk
+          bmo:bool[2,1018,1018] = pjit[
+            name=_roll_dynamic
+            jaxpr={ lambda ; ble:bool[2,1018,1018] bmn:i32[2]. let
+                bmp:i32[2,2] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 2)
+                  sharding=None
+                ] bmn
+                bmq:i32[2,1] = slice[
+                  limit_indices=(2, 1)
+                  start_indices=(0, 0)
+                  strides=(1, 1)
+                ] bmp
+                bmr:i32[2] = squeeze[dimensions=(1,)] bmq
+                bms:i32[] = max 1018 1
+                bmt:i32[2] = pjit[name=remainder jaxpr=remainder] bmr bms
+                bmu:bool[2,2036,1018] = concatenate[dimension=1] ble ble
+                bmv:i32[2] = sub 1018 bmt
+                bmw:bool[2] = lt bmv 0
+                bmx:i32[2] = add bmv 2036
+                bmy:i32[2] = select_n bmw bmv bmx
+                bmz:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 1)
+                  sharding=None
+                ] bmy
+                bna:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=()
+                  shape=(2, 1)
+                  sharding=None
+                ] 0
+                bnb:i32[2,2] = concatenate[dimension=1] bmz bna
+                bnc:bool[2,1018,1018] = gather[
+                  dimension_numbers=GatherDimensionNumbers(offset_dims=(1, 2), collapsed_slice_dims=(), start_index_map=(1, 2), operand_batching_dims=(0,), start_indices_batching_dims=(0,))
+                  fill_value=None
+                  indices_are_sorted=True
+                  mode=GatherScatterMode.PROMISE_IN_BOUNDS
+                  slice_sizes=(1, 1018, 1018)
+                  unique_indices=True
+                ] bmu bnb
+                bnd:i32[2,1] = slice[
+                  limit_indices=(2, 2)
+                  start_indices=(0, 1)
+                  strides=(1, 1)
+                ] bmp
+                bne:i32[2] = squeeze[dimensions=(1,)] bnd
+                bnf:i32[] = max 1018 1
+                bng:i32[2] = pjit[name=remainder jaxpr=remainder] bne bnf
+                bnh:bool[2,1018,2036] = concatenate[dimension=2] bnc bnc
+                bni:i32[2] = sub 1018 bng
+                bnj:bool[2] = lt bni 0
+                bnk:i32[2] = add bni 2036
+                bnl:i32[2] = select_n bnj bni bnk
+                bnm:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=()
+                  shape=(2, 1)
+                  sharding=None
+                ] 0
+                bnn:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 1)
+                  sharding=None
+                ] bnl
+                bno:i32[2,2] = concatenate[dimension=1] bnm bnn
+                bmo:bool[2,1018,1018] = gather[
+                  dimension_numbers=GatherDimensionNumbers(offset_dims=(1, 2), collapsed_slice_dims=(), start_index_map=(1, 2), operand_batching_dims=(0,), start_indices_batching_dims=(0,))
+                  fill_value=None
+                  indices_are_sorted=True
+                  mode=GatherScatterMode.PROMISE_IN_BOUNDS
+                  slice_sizes=(1, 1018, 1018)
+                  unique_indices=True
+                ] bnh bno
+              in (bmo,) }
+          ] ble bmn
+          bnp:i32[2,1018] = convert_element_type[
+            new_dtype=int32
+            weak_type=False
+          ] bmb
+          bnq:i32[2] = reduce_sum[axes=(1,)] bnp
+          bnr:i32[2] = sub 1018 bnq
+          bns:bool[2,1018,1274] = pjit[
+            name=_pad
+            jaxpr={ lambda ; bmo:bool[2,1018,1018] bnt:i32[]. let
+                bnu:bool[] = convert_element_type[
+                  new_dtype=bool
+                  weak_type=False
+                ] bnt
+                bns:bool[2,1018,1274] = pad[
+                  padding_config=((0, 0, 0), (0, 0, 0), (0, 256, 0))
+                ] bmo bnu
+              in (bns,) }
+          ] bmo 0
+          bnv:i32[2,1018] = pjit[
+            name=cumsum
+            jaxpr={ lambda ; bmb:bool[2,1018]. let
+                bnw:i32[2,1018] = convert_element_type[
+                  new_dtype=int32
+                  weak_type=False
+                ] bmb
+                bnv:i32[2,1018] = cumsum[axis=1 reverse=False] bnw
+              in (bnv,) }
+          ] bmb
+          bnx:i32[2,1018] = sub bnv 1
+          bny:bool[2,1,1018,1274] = broadcast_in_dim[
+            broadcast_dimensions=(0, 2, 3)
+            shape=(2, 1, 1018, 1274)
+            sharding=None
+          ] bns
+          bnz:i32[2] = broadcast_in_dim[
+            broadcast_dimensions=()
+            shape=(2,)
+            sharding=None
+          ] 0
+          _:i32[2] = add bnz 1018
+          boa:bf16[2,1018,2048] bob:i32[18,2] boc:bf16[18,2,1274,1,256] bod:bf16[18,2,1274,1,256] = scan[
+            _split_transpose=False
+            jaxpr={ lambda ; boe:i32[2,1018] bof:bool[2,1,1018,1274] bog:bf16[2,1018,2048]
+                boh:f32[8,256,2048] boi:f32[2,1,2048,256] boj:f32[8,2048,256] bok:f32[2,2048,16384]
+                bol:f32[16384,2048] bom:f32[2048] bon:f32[2048]. let
+                boo:bf16[2,1018,2048] bop:i32[2] boq:bf16[2,1274,1,256] bor:bf16[2,1274,1,256] = remat2[
+                  differentiated=False
+                  jaxpr={ lambda ; bos:f32[8,256,2048] bot:f32[2,1,2048,256] bou:f32[8,2048,256]
+                      bov:f32[2,2048,16384] bow:f32[16384,2048] box:f32[2048] boy:f32[2048]
+                      boz:bf16[2,1018,2048] bpa:i32[2,1018] bpb:bool[2,1,1018,1274]. let
+                      bpc:f32[2,1018,2048] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] boz
+                      bpd:f32[2,1018,2048] = square bpc
+                      bpe:f32[2,1018] = reduce_sum[axes=(2,)] bpd
+                      bpf:f32[2,1018,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 1018, 1)
+                        sharding=None
+                      ] bpe
+                      bpg:f32[2,1018,1] = div bpf 2048.0
+                      bph:f32[2,1018,1] = add bpg 9.999999974752427e-07
+                      bpi:f32[2,1018,1] = sqrt bph
+                      bpj:f32[2,1018,1] = integer_pow[y=-1] bpi
+                      bpk:f32[2,1018,2048] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] boz
+                      bpl:f32[2,1018,2048] = mul bpk bpj
+                      bpm:f32[2048] = add 1.0 box
+                      bpn:f32[1,1,2048] = broadcast_in_dim[
+                        broadcast_dimensions=(2,)
+                        shape=(1, 1, 2048)
+                        sharding=None
+                      ] bpm
+                      bpo:f32[2,1018,2048] = mul bpl bpn
+                      bpp:bf16[2,1018,2048] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bpo
+                      bpq:bf16[8,2048,256] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bou
+                      bpr:bf16[2,1018,8,256] = dot_general[
+                        dimension_numbers=(([2], [1]), ([], []))
+                        preferred_element_type=bfloat16
+                      ] bpp bpq
+                      bps:bf16[2,1,2048,256] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bot
+                      bpt:bf16[2,1,256,2,1018] = dot_general[
+                        dimension_numbers=(([2], [2]), ([], []))
+                        preferred_element_type=bfloat16
+                      ] bps bpp
+                      bpu:bf16[2,2,1018,1,256] = transpose[
+                        permutation=(0, 3, 4, 1, 2)
+                      ] bpt
+                      bpv:bf16[1,2,1018,1,256] = slice[
+                        limit_indices=(1, 2, 1018, 1, 256)
+                        start_indices=(0, 0, 0, 0, 0)
+                        strides=(1, 1, 1, 1, 1)
+                      ] bpu
+                      bpw:bf16[2,1018,1,256] = squeeze[dimensions=(0,)] bpv
+                      bpx:bf16[1,2,1018,1,256] = slice[
+                        limit_indices=(2, 2, 1018, 1, 256)
+                        start_indices=(1, 0, 0, 0, 0)
+                        strides=(1, 1, 1, 1, 1)
+                      ] bpu
+                      bpy:bf16[2,1018,1,256] = squeeze[dimensions=(0,)] bpx
+                      bpz:f32[128] = iota[
+                        dimension=0
+                        dtype=float32
+                        shape=(128,)
+                        sharding=None
+                      ] 
+                      bqa:f32[128] = mul 0.0078125 bpz
+                      bqb:f32[128] = pow 10000.0 bqa
+                      bqc:i32[2,1018,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 1018, 1)
+                        sharding=None
+                      ] bpa
+                      bqd:f32[1,1,128] = broadcast_in_dim[
+                        broadcast_dimensions=(2,)
+                        shape=(1, 1, 128)
+                        sharding=None
+                      ] bqb
+                      bqe:f32[2,1018,1] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bqc
+                      bqf:f32[2,1018,128] = div bqe bqd
+                      bqg:f32[2,1018,1,128] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 3)
+                        shape=(2, 1018, 1, 128)
+                        sharding=None
+                      ] bqf
+                      bqh:f32[2,1018,1,128] = sin bqg
+                      bqi:f32[2,1018,1,128] = cos bqg
+                      bqj:bf16[2,1018,8,128] bqk:bf16[2,1018,8,128] = split[
+                        axis=3
+                        sizes=(128, 128)
+                      ] bpr
+                      bql:f32[2,1018,8,128] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bqj
+                      bqm:f32[2,1018,8,128] = mul bql bqi
+                      bqn:f32[2,1018,8,128] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bqk
+                      bqo:f32[2,1018,8,128] = mul bqn bqh
+                      bqp:f32[2,1018,8,128] = sub bqm bqo
+                      bqq:f32[2,1018,8,128] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bqk
+                      bqr:f32[2,1018,8,128] = mul bqq bqi
+                      bqs:f32[2,1018,8,128] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bqj
+                      bqt:f32[2,1018,8,128] = mul bqs bqh
+                      bqu:f32[2,1018,8,128] = add bqr bqt
+                      bqv:f32[2,1018,8,256] = concatenate[dimension=3] bqp bqu
+                      bqw:f32[2,1018,8,256] = mul bqv 0.0625
+                      bqx:f32[128] = iota[
+                        dimension=0
+                        dtype=float32
+                        shape=(128,)
+                        sharding=None
+                      ] 
+                      bqy:f32[128] = mul 0.0078125 bqx
+                      bqz:f32[128] = pow 10000.0 bqy
+                      bra:i32[2,1018,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 1018, 1)
+                        sharding=None
+                      ] bpa
+                      brb:f32[1,1,128] = broadcast_in_dim[
+                        broadcast_dimensions=(2,)
+                        shape=(1, 1, 128)
+                        sharding=None
+                      ] bqz
+                      brc:f32[2,1018,1] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bra
+                      brd:f32[2,1018,128] = div brc brb
+                      bre:f32[2,1018,1,128] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 3)
+                        shape=(2, 1018, 1, 128)
+                        sharding=None
+                      ] brd
+                      brf:f32[2,1018,1,128] = sin bre
+                      brg:f32[2,1018,1,128] = cos bre
+                      brh:bf16[2,1018,1,128] bri:bf16[2,1018,1,128] = split[
+                        axis=3
+                        sizes=(128, 128)
+                      ] bpw
+                      brj:f32[2,1018,1,128] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] brh
+                      brk:f32[2,1018,1,128] = mul brj brg
+                      brl:f32[2,1018,1,128] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bri
+                      brm:f32[2,1018,1,128] = mul brl brf
+                      brn:f32[2,1018,1,128] = sub brk brm
+                      bro:f32[2,1018,1,128] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bri
+                      brp:f32[2,1018,1,128] = mul bro brg
+                      brq:f32[2,1018,1,128] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] brh
+                      brr:f32[2,1018,1,128] = mul brq brf
+                      brs:f32[2,1018,1,128] = add brp brr
+                      brt:f32[2,1018,1,256] = concatenate[dimension=3] brn brs
+                      bru:bf16[2,1018,1,256] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] brt
+                      brv:bf16[2,1274,1,256] = pjit[name=_pad jaxpr=_pad] bru 0
+                      brw:bf16[2,1274,1,256] = pjit[name=_pad jaxpr=_pad] bpy 0
+                      brx:i32[2] = broadcast_in_dim[
+                        broadcast_dimensions=()
+                        shape=(2,)
+                        sharding=None
+                      ] 0
+                      bry:i32[2] = add brx 1018
+                      brz:f32[2,1018,1,8,256] = reshape[
+                        dimensions=None
+                        new_sizes=(2, 1018, 1, 8, 256)
+                        sharding=None
+                      ] bqw
+                      bsa:f32[2,1,1274,1018,8] = dot_general[
+                        dimension_numbers=(([3], [4]), ([0, 2], [0, 2]))
+                        preferred_element_type=float32
+                      ] brv brz
+                      bsb:f32[2,1,8,1018,1274] = transpose[
+                        permutation=(0, 1, 4, 3, 2)
+                      ] bsa
+                      bsc:bool[2,1,1,1018,1274] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 3, 4)
+                        shape=(2, 1, 1, 1018, 1274)
+                        sharding=None
+                      ] bpb
+                      bsd:f32[2,1,8,1018,1274] = pjit[
+                        name=_where
+                        jaxpr={ lambda ; bsc:bool[2,1,1,1018,1274] bsb:f32[2,1,8,1018,1274]
+                            bse:f32[]. let
+                            bsf:f32[] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] bse
+                            bsg:bool[2,1,8,1018,1274] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1, 2, 3, 4)
+                              shape=(2, 1, 8, 1018, 1274)
+                              sharding=None
+                            ] bsc
+                            bsh:f32[2,1,8,1018,1274] = broadcast_in_dim[
+                              broadcast_dimensions=()
+                              shape=(2, 1, 8, 1018, 1274)
+                              sharding=None
+                            ] bsf
+                            bsd:f32[2,1,8,1018,1274] = select_n bsg bsh bsb
+                          in (bsd,) }
+                      ] bsc bsb -2.3819763e+38
+                      bsi:f32[2,1,8,1018] = reduce_max[axes=(4,)] bsd
+                      bsj:f32[2,1,8,1018] = max -inf bsi
+                      bsk:f32[2,1,8,1018,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 2, 3)
+                        shape=(2, 1, 8, 1018, 1)
+                        sharding=None
+                      ] bsj
+                      bsl:f32[2,1,8,1018,1] = stop_gradient bsk
+                      bsm:f32[2,1,8,1018,1274] = sub bsd bsl
+                      bsn:f32[2,1,8,1018,1274] = exp bsm
+                      bso:f32[2,1,8,1018] = reduce_sum[axes=(4,)] bsn
+                      bsp:f32[2,1,8,1018,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1, 2, 3)
+                        shape=(2, 1, 8, 1018, 1)
+                        sharding=None
+                      ] bso
+                      bsq:f32[2,1,8,1018,1274] = div bsn bsp
+                      bsr:bf16[2,1,8,1018,1274] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bsq
+                      bss:bf16[2,1,256,8,1018] = dot_general[
+                        dimension_numbers=(([1], [4]), ([0, 2], [0, 1]))
+                        preferred_element_type=bfloat16
+                      ] brw bsr
+                      bst:bf16[2,1018,1,8,256] = transpose[
+                        permutation=(0, 4, 1, 3, 2)
+                      ] bss
+                      bsu:bf16[2,1018,8,256] = reshape[
+                        dimensions=None
+                        new_sizes=(2, 1018, 8, 256)
+                        sharding=None
+                      ] bst
+                      bsv:bf16[8,256,2048] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bos
+                      bsw:bf16[2,1018,2048] = dot_general[
+                        dimension_numbers=(([3, 2], [1, 0]), ([], []))
+                        preferred_element_type=bfloat16
+                      ] bsu bsv
+                      bsx:bf16[2,1018,2048] = add bsw boz
+                      bsy:f32[2,1018,2048] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bsx
+                      bsz:f32[2,1018,2048] = square bsy
+                      bta:f32[2,1018] = reduce_sum[axes=(2,)] bsz
+                      btb:f32[2,1018,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 1018, 1)
+                        sharding=None
+                      ] bta
+                      btc:f32[2,1018,1] = div btb 2048.0
+                      btd:f32[2,1018,1] = add btc 9.999999974752427e-07
+                      bte:f32[2,1018,1] = sqrt btd
+                      btf:f32[2,1018,1] = integer_pow[y=-1] bte
+                      btg:f32[2,1018,2048] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bsx
+                      bth:f32[2,1018,2048] = mul btg btf
+                      bti:f32[2048] = add 1.0 boy
+                      btj:f32[1,1,2048] = broadcast_in_dim[
+                        broadcast_dimensions=(2,)
+                        shape=(1, 1, 2048)
+                        sharding=None
+                      ] bti
+                      btk:f32[2,1018,2048] = mul bth btj
+                      btl:bf16[2,1018,2048] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] btk
+                      btm:f32[1,2048,16384] = slice[
+                        limit_indices=(1, 2048, 16384)
+                        start_indices=(0, 0, 0)
+                        strides=None
+                      ] bov
+                      btn:f32[2048,16384] = squeeze[dimensions=(0,)] btm
+                      bto:bf16[2048,16384] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] btn
+                      btp:bf16[2,1018,16384] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                        preferred_element_type=bfloat16
+                      ] btl bto
+                      btq:bf16[2,1018,16384] = integer_pow[y=3] btp
+                      btr:bf16[2,1018,16384] = mul 0.0446777 btq
+                      bts:bf16[2,1018,16384] = add btp btr
+                      btt:bf16[2,1018,16384] = mul 0.796875 bts
+                      btu:bf16[2,1018,16384] = tanh btt
+                      btv:bf16[2,1018,16384] = add 1 btu
+                      btw:bf16[2,1018,16384] = mul 0.5 btv
+                      btx:bf16[2,1018,16384] = mul btp btw
+                      bty:f32[1,2048,16384] = slice[
+                        limit_indices=(2, 2048, 16384)
+                        start_indices=(1, 0, 0)
+                        strides=None
+                      ] bov
+                      btz:f32[2048,16384] = squeeze[dimensions=(0,)] bty
+                      bua:bf16[2048,16384] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] btz
+                      bub:bf16[2,1018,16384] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                        preferred_element_type=bfloat16
+                      ] btl bua
+                      buc:bf16[2,1018,16384] = mul btx bub
+                      bud:bf16[16384,2048] = convert_element_type[
+                        new_dtype=bfloat16
+                        weak_type=False
+                      ] bow
+                      bue:bf16[2,1018,2048] = dot_general[
+                        dimension_numbers=(([2], [0]), ([], []))
+                        preferred_element_type=bfloat16
+                      ] buc bud
+                      buf:bf16[2,1018,2048] = add bsx bue
+                    in (buf, bry, brv, brw) }
+                  policy=<function nothing_saveable at 0x7661fcdedda0>
+                  prevent_cse=False
+                ] boh boi boj bok bol bom bon bog boe bof
+              in (boo, bop, boq, bor) }
+            length=18
+            linear=(False, False, False, False, False, False, False, False, False, False)
+            num_carry=1
+            num_consts=2
+            reverse=False
+            unroll=1
+          ] bnx bny blm bq br bs bt bu bv bw
+          bug:f32[2,1018,2048] = convert_element_type[
+            new_dtype=float32
+            weak_type=False
+          ] boa
+          buh:f32[2,1018,2048] = square bug
+          bui:f32[2,1018] = reduce_sum[axes=(2,)] buh
+          buj:f32[2,1018,1] = broadcast_in_dim[
+            broadcast_dimensions=(0, 1)
+            shape=(2, 1018, 1)
+            sharding=None
+          ] bui
+          buk:f32[2,1018,1] = div buj 2048.0
+          bul:f32[2,1018,1] = add buk 9.999999974752427e-07
+          bum:f32[2,1018,1] = sqrt bul
+          bun:f32[2,1018,1] = integer_pow[y=-1] bum
+          buo:f32[2,1018,2048] = convert_element_type[
+            new_dtype=float32
+            weak_type=False
+          ] boa
+          bup:f32[2,1018,2048] = mul buo bun
+          buq:f32[2048] = add 1.0 bp
+          bur:f32[1,1,2048] = broadcast_in_dim[
+            broadcast_dimensions=(2,)
+            shape=(1, 1, 2048)
+            sharding=None
+          ] buq
+          bus:f32[2,1018,2048] = mul bup bur
+          but:bf16[2,1018,2048] = convert_element_type[
+            new_dtype=bfloat16
+            weak_type=False
+          ] bus
+          buu:f32[2048,257152] = transpose[permutation=(1, 0)] bo
+          buv:f32[2,1018,257152] = dot_general[
+            dimension_numbers=(([2], [0]), ([], []))
+            preferred_element_type=float32
+          ] but buu
+          buw:f32[2,1,257152] = slice[
+            limit_indices=(2, 1018, 257152)
+            start_indices=(0, 1017, 0)
+            strides=None
+          ] buv
+          bux:f32[2,256] = broadcast_in_dim[
+            broadcast_dimensions=()
+            shape=(2, 256)
+            sharding=None
+          ] 0.0
+          _:f32[2,1,257152] cj:f32[2,256] _:i32[18,2] _:bf16[18,2,1274,1,256] _:bf16[18,2,1274,1,256]
+            _:bool[] _:i32[] = while[
+            body_jaxpr={ lambda ; buy:f32[257152,2048] buz:i32[2] bva:i32[2] bvb:f32[18,8,256,2048]
+                bvc:f32[18,2,1,2048,256] bvd:f32[18,8,2048,256] bve:f32[18,2,2048,16384]
+                bvf:f32[18,16384,2048] bvg:f32[18,2048] bvh:f32[18,2048] bvi:f32[2048]
+                bvj:f32[2,1,257152] bvk:f32[2,256] bvl:i32[18,2] bvm:bf16[18,2,1274,1,256]
+                bvn:bf16[18,2,1274,1,256] bvo:bool[] bvp:i32[]. let
+                bvq:i32[2,1] = argmax[axes=(2,) index_dtype=int32] bvj
+                bvr:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=()
+                  shape=(2, 1)
+                  sharding=None
+                ] bvp
+                bvs:i32[2,1,256] = pjit[
+                  name=_one_hot
+                  jaxpr={ lambda ; bvr:i32[2,1]. let
+                      bvt:i32[2,1,1] = broadcast_in_dim[
+                        broadcast_dimensions=(0, 1)
+                        shape=(2, 1, 1)
+                        sharding=None
+                      ] bvr
+                      bvu:i32[1,1,256] = iota[
+                        dimension=2
+                        dtype=int32
+                        shape=(1, 1, 256)
+                        sharding=None
+                      ] 
+                      bvv:i32[2,1,1] = convert_element_type[
+                        new_dtype=int32
+                        weak_type=False
+                      ] bvt
+                      bvw:bool[2,1,256] = eq bvv bvu
+                      bvs:i32[2,1,256] = convert_element_type[
+                        new_dtype=int32
+                        weak_type=False
+                      ] bvw
+                    in (bvs,) }
+                ] bvr
+                bvx:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=()
+                  shape=(2, 1)
+                  sharding=None
+                ] 1
+                bvy:i32[2,256] = dot_general[
+                  dimension_numbers=(([1], [1]), ([0], [0]))
+                  preferred_element_type=int32
+                ] bvx bvs
+                bvz:i32[2,256] = dot_general[
+                  dimension_numbers=(([1], [1]), ([0], [0]))
+                  preferred_element_type=int32
+                ] bvq bvs
+                bwa:f32[2,256] = pjit[
+                  name=_where
+                  jaxpr={ lambda ; bvy:i32[2,256] bvz:i32[2,256] bvk:f32[2,256]. let
+                      bwb:bool[2,256] = ne bvy 0
+                      bwc:f32[2,256] = convert_element_type[
+                        new_dtype=float32
+                        weak_type=False
+                      ] bvz
+                      bwa:f32[2,256] = select_n bwb bvk bwc
+                    in (bwa,) }
+                ] bvy bvz bvk
+                bwd:bool[2,1] = eq bvq 1
+                bwe:bool[2] = reduce_or[axes=(1,)] bwd
+                bwf:bool[] = reduce_and[axes=(0,)] bwe
+                bwg:bool[2,1] = lt bvq 0
+                bwh:i32[2,1] = add bvq 257152
+                bwi:i32[2,1] = select_n bwg bvq bwh
+                bwj:i32[2,1,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0, 1)
+                  shape=(2, 1, 1)
+                  sharding=None
+                ] bwi
+                bwk:f32[2,1,2048] = gather[
+                  dimension_numbers=GatherDimensionNumbers(offset_dims=(2,), collapsed_slice_dims=(0,), start_index_map=(0,), operand_batching_dims=(), start_indices_batching_dims=())
+                  fill_value=None
+                  indices_are_sorted=False
+                  mode=GatherScatterMode.PROMISE_IN_BOUNDS
+                  slice_sizes=(1, 2048)
+                  unique_indices=False
+                ] buy bwj
+                bwl:f32[] = sqrt 2048.0
+                bwm:f32[] = convert_element_type[
+                  new_dtype=float32
+                  weak_type=False
+                ] bwl
+                bwn:f32[2,1,2048] = mul bwk bwm
+                bwo:bf16[2,1,2048] = convert_element_type[
+                  new_dtype=bfloat16
+                  weak_type=False
+                ] bwn
+                bwp:i32[2,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 1)
+                  sharding=None
+                ] buz
+                bwq:i32[] = convert_element_type[
+                  new_dtype=int32
+                  weak_type=False
+                ] bvp
+                bwr:i32[2,1] = add bwp bwq
+                bws:i32[2,1] = add bwr 1
+                bwt:i32[1274] = iota[
+                  dimension=0
+                  dtype=int32
+                  shape=(1274,)
+                  sharding=None
+                ] 
+                bwu:i32[1,1,1274] = broadcast_in_dim[
+                  broadcast_dimensions=(2,)
+                  shape=(1, 1, 1274)
+                  sharding=None
+                ] bwt
+                bwv:i32[2,1,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0,)
+                  shape=(2, 1, 1)
+                  sharding=None
+                ] bva
+                bww:bool[2,1,1274] = ge bwu bwv
+                bwx:i32[1274] = iota[
+                  dimension=0
+                  dtype=int32
+                  shape=(1274,)
+                  sharding=None
+                ] 
+                bwy:i32[1,1,1274] = broadcast_in_dim[
+                  broadcast_dimensions=(2,)
+                  shape=(1, 1, 1274)
+                  sharding=None
+                ] bwx
+                bwz:i32[] = add 1018 bvp
+                bxa:i32[] = add bwz 1
+                bxb:i32[2,1,1] = broadcast_in_dim[
+                  broadcast_dimensions=()
+                  shape=(2, 1, 1)
+                  sharding=None
+                ] bxa
+                bxc:i32[2,1,1] = convert_element_type[
+                  new_dtype=int32
+                  weak_type=False
+                ] bxb
+                bxd:bool[2,1,1274] = lt bwy bxc
+                bxe:bool[2,1,1274] = and bww bxd
+                bxf:bool[2,1,1,1274] = broadcast_in_dim[
+                  broadcast_dimensions=(0, 2, 3)
+                  shape=(2, 1, 1, 1274)
+                  sharding=None
+                ] bxe
+                bxg:bf16[2,1,2048] bxh:i32[18,2] bxi:bf16[18,2,1274,1,256] bxj:bf16[18,2,1274,1,256] = scan[
+                  _split_transpose=False
+                  jaxpr={ lambda ; bxk:i32[2,1] bxl:bool[2,1,1,1274] bxm:bf16[2,1,2048]
+                      bxn:f32[8,256,2048] bxo:f32[2,1,2048,256] bxp:f32[8,2048,256]
+                      bxq:f32[2,2048,16384] bxr:f32[16384,2048] bxs:f32[2048] bxt:f32[2048]
+                      bxu:i32[2] bxv:bf16[2,1274,1,256] bxw:bf16[2,1274,1,256]. let
+                      bxx:bf16[2,1,2048] bxy:i32[2] bxz:bf16[2,1274,1,256] bya:bf16[2,1274,1,256] = remat2[
+                        differentiated=False
+                        jaxpr={ lambda ; byb:f32[8,256,2048] byc:f32[2,1,2048,256]
+                            byd:f32[8,2048,256] bye:f32[2,2048,16384] byf:f32[16384,2048]
+                            byg:f32[2048] byh:f32[2048] byi:bf16[2,1,2048] byj:i32[2]
+                            byk:bf16[2,1274,1,256] byl:bf16[2,1274,1,256] bym:i32[2,1]
+                            byn:bool[2,1,1,1274]. let
+                            byo:f32[2,1,2048] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] byi
+                            byp:f32[2,1,2048] = square byo
+                            byq:f32[2,1] = reduce_sum[axes=(2,)] byp
+                            byr:f32[2,1,1] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1)
+                              shape=(2, 1, 1)
+                              sharding=None
+                            ] byq
+                            bys:f32[2,1,1] = div byr 2048.0
+                            byt:f32[2,1,1] = add bys 9.999999974752427e-07
+                            byu:f32[2,1,1] = sqrt byt
+                            byv:f32[2,1,1] = integer_pow[y=-1] byu
+                            byw:f32[2,1,2048] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] byi
+                            byx:f32[2,1,2048] = mul byw byv
+                            byy:f32[2048] = add 1.0 byg
+                            byz:f32[1,1,2048] = broadcast_in_dim[
+                              broadcast_dimensions=(2,)
+                              shape=(1, 1, 2048)
+                              sharding=None
+                            ] byy
+                            bza:f32[2,1,2048] = mul byx byz
+                            bzb:bf16[2,1,2048] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] bza
+                            bzc:bf16[8,2048,256] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] byd
+                            bzd:bf16[2,1,8,256] = dot_general[
+                              dimension_numbers=(([2], [1]), ([], []))
+                              preferred_element_type=bfloat16
+                            ] bzb bzc
+                            bze:bf16[2,1,2048,256] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] byc
+                            bzf:bf16[2,1,256,2,1] = dot_general[
+                              dimension_numbers=(([2], [2]), ([], []))
+                              preferred_element_type=bfloat16
+                            ] bze bzb
+                            bzg:bf16[2,2,1,1,256] = transpose[
+                              permutation=(0, 3, 4, 1, 2)
+                            ] bzf
+                            bzh:bf16[1,2,1,1,256] = slice[
+                              limit_indices=(1, 2, 1, 1, 256)
+                              start_indices=(0, 0, 0, 0, 0)
+                              strides=(1, 1, 1, 1, 1)
+                            ] bzg
+                            bzi:bf16[2,1,1,256] = squeeze[dimensions=(0,)] bzh
+                            bzj:bf16[1,2,1,1,256] = slice[
+                              limit_indices=(2, 2, 1, 1, 256)
+                              start_indices=(1, 0, 0, 0, 0)
+                              strides=(1, 1, 1, 1, 1)
+                            ] bzg
+                            bzk:bf16[2,1,1,256] = squeeze[dimensions=(0,)] bzj
+                            bzl:f32[128] = iota[
+                              dimension=0
+                              dtype=float32
+                              shape=(128,)
+                              sharding=None
+                            ] 
+                            bzm:f32[128] = mul 0.0078125 bzl
+                            bzn:f32[128] = pow 10000.0 bzm
+                            bzo:i32[2,1,1] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1)
+                              shape=(2, 1, 1)
+                              sharding=None
+                            ] bym
+                            bzp:f32[1,1,128] = broadcast_in_dim[
+                              broadcast_dimensions=(2,)
+                              shape=(1, 1, 128)
+                              sharding=None
+                            ] bzn
+                            bzq:f32[2,1,1] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] bzo
+                            bzr:f32[2,1,128] = div bzq bzp
+                            bzs:f32[2,1,1,128] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1, 3)
+                              shape=(2, 1, 1, 128)
+                              sharding=None
+                            ] bzr
+                            bzt:f32[2,1,1,128] = sin bzs
+                            bzu:f32[2,1,1,128] = cos bzs
+                            bzv:bf16[2,1,8,128] bzw:bf16[2,1,8,128] = split[
+                              axis=3
+                              sizes=(128, 128)
+                            ] bzd
+                            bzx:f32[2,1,8,128] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] bzv
+                            bzy:f32[2,1,8,128] = mul bzx bzu
+                            bzz:f32[2,1,8,128] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] bzw
+                            caa:f32[2,1,8,128] = mul bzz bzt
+                            cab:f32[2,1,8,128] = sub bzy caa
+                            cac:f32[2,1,8,128] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] bzw
+                            cad:f32[2,1,8,128] = mul cac bzu
+                            cae:f32[2,1,8,128] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] bzv
+                            caf:f32[2,1,8,128] = mul cae bzt
+                            cag:f32[2,1,8,128] = add cad caf
+                            cah:f32[2,1,8,256] = concatenate[dimension=3] cab cag
+                            cai:f32[2,1,8,256] = mul cah 0.0625
+                            caj:f32[128] = iota[
+                              dimension=0
+                              dtype=float32
+                              shape=(128,)
+                              sharding=None
+                            ] 
+                            cak:f32[128] = mul 0.0078125 caj
+                            cal:f32[128] = pow 10000.0 cak
+                            cam:i32[2,1,1] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1)
+                              shape=(2, 1, 1)
+                              sharding=None
+                            ] bym
+                            can:f32[1,1,128] = broadcast_in_dim[
+                              broadcast_dimensions=(2,)
+                              shape=(1, 1, 128)
+                              sharding=None
+                            ] cal
+                            cao:f32[2,1,1] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] cam
+                            cap:f32[2,1,128] = div cao can
+                            caq:f32[2,1,1,128] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1, 3)
+                              shape=(2, 1, 1, 128)
+                              sharding=None
+                            ] cap
+                            car:f32[2,1,1,128] = sin caq
+                            cas:f32[2,1,1,128] = cos caq
+                            cat:bf16[2,1,1,128] cau:bf16[2,1,1,128] = split[
+                              axis=3
+                              sizes=(128, 128)
+                            ] bzi
+                            cav:f32[2,1,1,128] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] cat
+                            caw:f32[2,1,1,128] = mul cav cas
+                            cax:f32[2,1,1,128] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] cau
+                            cay:f32[2,1,1,128] = mul cax car
+                            caz:f32[2,1,1,128] = sub caw cay
+                            cba:f32[2,1,1,128] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] cau
+                            cbb:f32[2,1,1,128] = mul cba cas
+                            cbc:f32[2,1,1,128] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] cat
+                            cbd:f32[2,1,1,128] = mul cbc car
+                            cbe:f32[2,1,1,128] = add cbb cbd
+                            cbf:f32[2,1,1,256] = concatenate[dimension=3] caz cbe
+                            cbg:i32[1] = slice[
+                              limit_indices=(1,)
+                              start_indices=(0,)
+                              strides=None
+                            ] byj
+                            cbh:i32[] = squeeze[dimensions=(0,)] cbg
+                            cbi:bf16[2,1,1,256] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] cbf
+                            cbj:bool[] = lt cbh 0
+                            cbk:i32[] = add cbh 1274
+                            cbl:i32[] = select_n cbj cbh cbk
+                            cbm:bf16[2,1274,1,256] = dynamic_update_slice byk cbi
+                              0 cbl 0 0
+                            cbn:bool[] = lt cbh 0
+                            cbo:i32[] = add cbh 1274
+                            cbp:i32[] = select_n cbn cbh cbo
+                            cbq:bf16[2,1274,1,256] = dynamic_update_slice byl bzk
+                              0 cbp 0 0
+                            cbr:i32[2] = add byj 1
+                            cbs:f32[2,1,1,8,256] = reshape[
+                              dimensions=None
+                              new_sizes=(2, 1, 1, 8, 256)
+                              sharding=None
+                            ] cai
+                            cbt:f32[2,1,1274,1,8] = dot_general[
+                              dimension_numbers=(([3], [4]), ([0, 2], [0, 2]))
+                              preferred_element_type=float32
+                            ] cbm cbs
+                            cbu:f32[2,1,8,1,1274] = transpose[
+                              permutation=(0, 1, 4, 3, 2)
+                            ] cbt
+                            cbv:bool[2,1,1,1,1274] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1, 3, 4)
+                              shape=(2, 1, 1, 1, 1274)
+                              sharding=None
+                            ] byn
+                            cbw:f32[2,1,8,1,1274] = pjit[
+                              name=_where
+                              jaxpr={ lambda ; cbv:bool[2,1,1,1,1274] cbu:f32[2,1,8,1,1274]
+                                  cbx:f32[]. let
+                                  cby:f32[] = convert_element_type[
+                                    new_dtype=float32
+                                    weak_type=False
+                                  ] cbx
+                                  cbz:bool[2,1,8,1,1274] = broadcast_in_dim[
+                                    broadcast_dimensions=(0, 1, 2, 3, 4)
+                                    shape=(2, 1, 8, 1, 1274)
+                                    sharding=None
+                                  ] cbv
+                                  cca:f32[2,1,8,1,1274] = broadcast_in_dim[
+                                    broadcast_dimensions=()
+                                    shape=(2, 1, 8, 1, 1274)
+                                    sharding=None
+                                  ] cby
+                                  cbw:f32[2,1,8,1,1274] = select_n cbz cca cbu
+                                in (cbw,) }
+                            ] cbv cbu -2.3819763e+38
+                            ccb:f32[2,1,8,1] = reduce_max[axes=(4,)] cbw
+                            ccc:f32[2,1,8,1] = max -inf ccb
+                            ccd:f32[2,1,8,1,1] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1, 2, 3)
+                              shape=(2, 1, 8, 1, 1)
+                              sharding=None
+                            ] ccc
+                            cce:f32[2,1,8,1,1] = stop_gradient ccd
+                            ccf:f32[2,1,8,1,1274] = sub cbw cce
+                            ccg:f32[2,1,8,1,1274] = exp ccf
+                            cch:f32[2,1,8,1] = reduce_sum[axes=(4,)] ccg
+                            cci:f32[2,1,8,1,1] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1, 2, 3)
+                              shape=(2, 1, 8, 1, 1)
+                              sharding=None
+                            ] cch
+                            ccj:f32[2,1,8,1,1274] = div ccg cci
+                            cck:bf16[2,1,8,1,1274] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] ccj
+                            ccl:bf16[2,1,256,8,1] = dot_general[
+                              dimension_numbers=(([1], [4]), ([0, 2], [0, 1]))
+                              preferred_element_type=bfloat16
+                            ] cbq cck
+                            ccm:bf16[2,1,1,8,256] = transpose[
+                              permutation=(0, 4, 1, 3, 2)
+                            ] ccl
+                            ccn:bf16[2,1,8,256] = reshape[
+                              dimensions=None
+                              new_sizes=(2, 1, 8, 256)
+                              sharding=None
+                            ] ccm
+                            cco:bf16[8,256,2048] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] byb
+                            ccp:bf16[2,1,2048] = dot_general[
+                              dimension_numbers=(([3, 2], [1, 0]), ([], []))
+                              preferred_element_type=bfloat16
+                            ] ccn cco
+                            ccq:bf16[2,1,2048] = add ccp byi
+                            ccr:f32[2,1,2048] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] ccq
+                            ccs:f32[2,1,2048] = square ccr
+                            cct:f32[2,1] = reduce_sum[axes=(2,)] ccs
+                            ccu:f32[2,1,1] = broadcast_in_dim[
+                              broadcast_dimensions=(0, 1)
+                              shape=(2, 1, 1)
+                              sharding=None
+                            ] cct
+                            ccv:f32[2,1,1] = div ccu 2048.0
+                            ccw:f32[2,1,1] = add ccv 9.999999974752427e-07
+                            ccx:f32[2,1,1] = sqrt ccw
+                            ccy:f32[2,1,1] = integer_pow[y=-1] ccx
+                            ccz:f32[2,1,2048] = convert_element_type[
+                              new_dtype=float32
+                              weak_type=False
+                            ] ccq
+                            cda:f32[2,1,2048] = mul ccz ccy
+                            cdb:f32[2048] = add 1.0 byh
+                            cdc:f32[1,1,2048] = broadcast_in_dim[
+                              broadcast_dimensions=(2,)
+                              shape=(1, 1, 2048)
+                              sharding=None
+                            ] cdb
+                            cdd:f32[2,1,2048] = mul cda cdc
+                            cde:bf16[2,1,2048] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] cdd
+                            cdf:f32[1,2048,16384] = slice[
+                              limit_indices=(1, 2048, 16384)
+                              start_indices=(0, 0, 0)
+                              strides=None
+                            ] bye
+                            cdg:f32[2048,16384] = squeeze[dimensions=(0,)] cdf
+                            cdh:bf16[2048,16384] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] cdg
+                            cdi:bf16[2,1,16384] = dot_general[
+                              dimension_numbers=(([2], [0]), ([], []))
+                              preferred_element_type=bfloat16
+                            ] cde cdh
+                            cdj:bf16[2,1,16384] = integer_pow[y=3] cdi
+                            cdk:bf16[2,1,16384] = mul 0.0446777 cdj
+                            cdl:bf16[2,1,16384] = add cdi cdk
+                            cdm:bf16[2,1,16384] = mul 0.796875 cdl
+                            cdn:bf16[2,1,16384] = tanh cdm
+                            cdo:bf16[2,1,16384] = add 1 cdn
+                            cdp:bf16[2,1,16384] = mul 0.5 cdo
+                            cdq:bf16[2,1,16384] = mul cdi cdp
+                            cdr:f32[1,2048,16384] = slice[
+                              limit_indices=(2, 2048, 16384)
+                              start_indices=(1, 0, 0)
+                              strides=None
+                            ] bye
+                            cds:f32[2048,16384] = squeeze[dimensions=(0,)] cdr
+                            cdt:bf16[2048,16384] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] cds
+                            cdu:bf16[2,1,16384] = dot_general[
+                              dimension_numbers=(([2], [0]), ([], []))
+                              preferred_element_type=bfloat16
+                            ] cde cdt
+                            cdv:bf16[2,1,16384] = mul cdq cdu
+                            cdw:bf16[16384,2048] = convert_element_type[
+                              new_dtype=bfloat16
+                              weak_type=False
+                            ] byf
+                            cdx:bf16[2,1,2048] = dot_general[
+                              dimension_numbers=(([2], [0]), ([], []))
+                              preferred_element_type=bfloat16
+                            ] cdv cdw
+                            cdy:bf16[2,1,2048] = add ccq cdx
+                          in (cdy, cbr, cbm, cbq) }
+                        policy=<function nothing_saveable at 0x7661fcdedda0>
+                        prevent_cse=False
+                      ] bxn bxo bxp bxq bxr bxs bxt bxm bxu bxv bxw bxk bxl
+                    in (bxx, bxy, bxz, bya) }
+                  length=18
+                  linear=(False, False, False, False, False, False, False, False, False, False, False, False, False)
+                  num_carry=1
+                  num_consts=2
+                  reverse=False
+                  unroll=1
+                ] bws bxf bwo bvb bvc bvd bve bvf bvg bvh bvl bvm bvn
+                cdz:f32[2,1,2048] = convert_element_type[
+                  new_dtype=float32
+                  weak_type=False
+                ] bxg
+                cea:f32[2,1,2048] = square cdz
+                ceb:f32[2,1] = reduce_sum[axes=(2,)] cea
+                cec:f32[2,1,1] = broadcast_in_dim[
+                  broadcast_dimensions=(0, 1)
+                  shape=(2, 1, 1)
+                  sharding=None
+                ] ceb
+                ced:f32[2,1,1] = div cec 2048.0
+                cee:f32[2,1,1] = add ced 9.999999974752427e-07
+                cef:f32[2,1,1] = sqrt cee
+                ceg:f32[2,1,1] = integer_pow[y=-1] cef
+                ceh:f32[2,1,2048] = convert_element_type[
+                  new_dtype=float32
+                  weak_type=False
+                ] bxg
+                cei:f32[2,1,2048] = mul ceh ceg
+                cej:f32[2048] = add 1.0 bvi
+                cek:f32[1,1,2048] = broadcast_in_dim[
+                  broadcast_dimensions=(2,)
+                  shape=(1, 1, 2048)
+                  sharding=None
+                ] cej
+                cel:f32[2,1,2048] = mul cei cek
+                cem:bf16[2,1,2048] = convert_element_type[
+                  new_dtype=bfloat16
+                  weak_type=False
+                ] cel
+                cen:f32[2048,257152] = transpose[permutation=(1, 0)] buy
+                ceo:f32[2,1,257152] = dot_general[
+                  dimension_numbers=(([2], [0]), ([], []))
+                  preferred_element_type=float32
+                ] cem cen
+                cep:i32[] = add bvp 1
+              in (ceo, bwa, bxh, bxi, bxj, bwf, cep) }
+            body_nconsts=11
+            cond_jaxpr={ lambda ; ceq:f32[2,1,257152] cer:f32[2,256] ces:i32[18,2]
+                cet:bf16[18,2,1274,1,256] ceu:bf16[18,2,1274,1,256] cev:bool[] cew:i32[]. let
+                cex:bool[] = not cev
+                cey:bool[] = lt cew 256
+                cez:bool[] = convert_element_type[
+                  new_dtype=bool
+                  weak_type=False
+                ] cey
+                cfa:bool[] = and cex cez
+              in (cfa,) }
+            cond_nconsts=0
+          ] bo bnq bnr bq br bs bt bu bv bw bp buw bux bob boc bod False 0
+        in (cj,) }
+    ] r s t u v w x y z ba bb bc bd be bf bg bh bi bj bk bl bm bn bo bp bq br bs
+      bt bu bv bw bx by bz ca cb cc cd ce cf cg ch ci
+  in (cj,) }
