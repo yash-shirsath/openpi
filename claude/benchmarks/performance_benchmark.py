@@ -35,7 +35,20 @@ class AttentionPerformanceBenchmark:
             Dictionary with benchmark results
         """
         if test_configs is None:
-            test_configs = self._generate_test_configs()
+            # Infer architecture from the module to generate correct configs
+            try:
+                num_heads = attention_module.num_heads
+                num_kv_heads = attention_module.num_kv_heads
+            except AttributeError:
+                print(f"Warning: Could not determine architecture from module {module_name}. "
+                      "Using default head configs from benchmark_config. This may be incorrect.")
+                num_heads = None
+                num_kv_heads = None
+
+            test_configs = self._generate_test_configs(
+                num_heads=num_heads,
+                num_kv_heads=num_kv_heads
+            )
             
         results = {
             'module_name': module_name,
@@ -60,18 +73,26 @@ class AttentionPerformanceBenchmark:
         self.results[module_name] = results
         return results
     
-    def _generate_test_configs(self) -> List[Dict]:
+    def _generate_test_configs(
+        self, 
+        num_heads: Optional[int] = None, 
+        num_kv_heads: Optional[int] = None
+    ) -> List[Dict]:
         """Generate test configurations from benchmark config."""
         configs = []
         
+        head_configs = self.config.HEAD_CONFIGS
+        if num_heads is not None and num_kv_heads is not None:
+            head_configs = [(num_heads, num_kv_heads)]
+
         for seq_len in self.config.SEQUENCE_LENGTHS:
             for batch_size in self.config.BATCH_SIZES:
-                for num_heads, num_kv_heads in self.config.HEAD_CONFIGS:
+                for h, kv_h in head_configs:
                     configs.append({
                         'batch_size': batch_size,
                         'seq_len': seq_len,
-                        'num_heads': num_heads,
-                        'num_kv_heads': num_kv_heads,
+                        'num_heads': h,
+                        'num_kv_heads': kv_h,
                         'head_dim': self.config.HEAD_DIM,
                         'width': self.config.WIDTH,
                     })
@@ -136,14 +157,23 @@ class AttentionPerformanceBenchmark:
     
     def _measure_memory_usage(self, forward_fn) -> Dict[str, float]:
         """Measure memory usage during forward pass."""
-        try:
-            # Get memory before
-            initial_memory = jax.default_backend().get_memory_info().bytes_in_use
-        except:
+        # This function is not perfectly accurate but gives a reasonable estimate.
+        # For GPU, it measures the increase in bytes allocated on the device.
+        devices = jax.local_devices()
+        if not devices:
             initial_memory = 0
-            
+        else:
+            # Assuming we're benchmarking on the first device
+            try:
+                devices[0].synchronize()
+                initial_memory = devices[0].get_memory_info().bytes_in_use
+            except Exception:
+                initial_memory = 0 # Fallback for different JAX versions or backends
+
         # Run forward pass
         result = forward_fn()
+        
+        # Ensure computation is finished before measuring memory
         if hasattr(result, 'block_until_ready'):
             result.block_until_ready()
         elif isinstance(result, (tuple, list)):
@@ -151,12 +181,15 @@ class AttentionPerformanceBenchmark:
                 if hasattr(r, 'block_until_ready'):
                     r.block_until_ready()
         
-        try:
-            # Get memory after
-            peak_memory = jax.default_backend().get_memory_info().bytes_in_use
-            memory_delta = peak_memory - initial_memory
-        except:
+        if not devices:
             memory_delta = 0
+        else:
+            try:
+                devices[0].synchronize()
+                peak_memory = devices[0].get_memory_info().bytes_in_use
+                memory_delta = peak_memory - initial_memory
+            except Exception:
+                memory_delta = 0 # Fallback
             
         return {
             'memory_delta_bytes': memory_delta,
@@ -208,11 +241,14 @@ class AttentionPerformanceBenchmark:
         for module_name in module_names[1:]:
             module_stats = self.results[module_name]['summary_stats']
             
-            # Calculate relative performance metrics
+            # Calculate relative performance metrics with safe division
+            baseline_memory = baseline_stats['memory_stats']['mean_memory_mb']
+            module_memory = module_stats['memory_stats']['mean_memory_mb']
+            
             comparison['relative_performance'][module_name] = {
                 'time_ratio': module_stats['time_stats']['mean'] / baseline_stats['time_stats']['mean'],
                 'throughput_ratio': module_stats['throughput_stats']['mean_tokens_per_sec'] / baseline_stats['throughput_stats']['mean_tokens_per_sec'],
-                'memory_ratio': module_stats['memory_stats']['mean_memory_mb'] / baseline_stats['memory_stats']['mean_memory_mb'],
+                'memory_ratio': module_memory / baseline_memory if baseline_memory != 0 else float('inf') if module_memory != 0 else 1.0,
             }
         
         # Analyze scaling behavior

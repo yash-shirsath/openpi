@@ -122,8 +122,9 @@ class AttentionMemoryBenchmark:
                   f"H={config['num_heads']}/{config['num_kv_heads']}")
             
             config_result = self._benchmark_single_config_memory(attention_module, config)
-            config_result.update(config)
-            results['configurations'].append(config_result)
+            # Add config info but don't overwrite benchmark results
+            full_result = {**config, **config_result}
+            results['configurations'].append(full_result)
             
         # Analyze memory scaling patterns
         results['memory_scaling'] = self._analyze_memory_scaling(results['configurations'])
@@ -358,7 +359,7 @@ class AttentionMemoryBenchmark:
             'memory_breakdown': {
                 'attention_matrix_dominance': float(np.mean(attention_matrix_sizes / theoretical_memories)),
                 'largest_attention_matrix_mb': float(np.max(attention_matrix_sizes)),
-                'attention_memory_ratio': float(np.mean(attention_matrix_sizes / peak_memories)),
+                'attention_memory_ratio': float(np.mean(attention_matrix_sizes / peak_memories)) if np.all(peak_memories > 0) else 0.0,
             },
             'bottleneck_analysis': {
                 'memory_bound_threshold_mb': 1000,  # Configurable threshold

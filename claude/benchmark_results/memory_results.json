@@ -1,17 +1,23 @@
 {
-  "gemma": {
-    "module_name": "gemma",
+  "gemma_H32_KV8": {
+    "module_name": "gemma_H32_KV8",
     "configurations": [
       {
+        "batch_size": 1,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -26,47 +32,47 @@
           "attention_matrix_dominance": 0.36363636363636365
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.0012118051162618565,
+          "overhead_bytes": 76054200320,
+          "overhead_mb": 72530.9375,
+          "overhead_ratio": 824.2151988636364
         },
         "profile_data": {
           "timestamps": [
-            3.0858442187309265e-05
+            0.00044185109436511993
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
+        }
+      },
+      {
         "batch_size": 1,
         "seq_len": 512,
         "num_heads": 32,
-        "num_kv_heads": 32,
+        "num_kv_heads": 8,
         "head_dim": 256,
-        "width": 8192
-      },
-      {
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -81,47 +87,47 @@
           "attention_matrix_dominance": 0.36363636363636365
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.0012118051162618565,
+          "overhead_bytes": 76054200320,
+          "overhead_mb": 72530.9375,
+          "overhead_ratio": 824.2151988636364
         },
         "profile_data": {
           "timestamps": [
-            2.2124499082565308e-05
+            0.0001513119786977768
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
-        "batch_size": 1,
-        "seq_len": 512,
-        "num_heads": 32,
-        "num_kv_heads": 8,
-        "head_dim": 256,
-        "width": 8192
+        }
       },
       {
+        "batch_size": 4,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -136,47 +142,47 @@
           "attention_matrix_dominance": 0.36363636363636365
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.004847220465047426,
+          "overhead_bytes": 75777376256,
+          "overhead_mb": 72266.9375,
+          "overhead_ratio": 205.3037997159091
         },
         "profile_data": {
           "timestamps": [
-            2.7747824788093567e-05
+            0.00027488358318805695
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
+        }
+      },
+      {
         "batch_size": 4,
         "seq_len": 512,
         "num_heads": 32,
-        "num_kv_heads": 32,
+        "num_kv_heads": 8,
         "head_dim": 256,
-        "width": 8192
-      },
-      {
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -191,47 +197,47 @@
           "attention_matrix_dominance": 0.36363636363636365
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.004847220465047426,
+          "overhead_bytes": 75777376256,
+          "overhead_mb": 72266.9375,
+          "overhead_ratio": 205.3037997159091
         },
         "profile_data": {
           "timestamps": [
-            1.4239922165870667e-05
+            0.0004185531288385391
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
-        "batch_size": 4,
-        "seq_len": 512,
-        "num_heads": 32,
-        "num_kv_heads": 8,
-        "head_dim": 256,
-        "width": 8192
+        }
       },
       {
+        "batch_size": 1,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -246,47 +252,47 @@
           "attention_matrix_dominance": 0.5333333333333333
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.003304923044350518,
+          "overhead_bytes": 75894816768,
+          "overhead_mb": 72378.9375,
+          "overhead_ratio": 301.57890625
         },
         "profile_data": {
           "timestamps": [
-            2.4704262614250183e-05
+            0.0019111819565296173
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
+        }
+      },
+      {
         "batch_size": 1,
         "seq_len": 1024,
         "num_heads": 32,
-        "num_kv_heads": 32,
+        "num_kv_heads": 8,
         "head_dim": 256,
-        "width": 8192
-      },
-      {
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -301,102 +307,47 @@
           "attention_matrix_dominance": 0.5333333333333333
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.003304923044350518,
+          "overhead_bytes": 75894816768,
+          "overhead_mb": 72378.9375,
+          "overhead_ratio": 301.57890625
         },
         "profile_data": {
           "timestamps": [
-            2.2394582629203796e-05
+            0.0003058556467294693
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
-        "batch_size": 1,
-        "seq_len": 1024,
-        "num_heads": 32,
-        "num_kv_heads": 8,
-        "head_dim": 256,
-        "width": 8192
+        }
       },
       {
-        "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
-        },
-        "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
-        },
-        "memory_delta_bytes": 0.0,
-        "memory_delta_mb": 0.0,
-        "theoretical_memory": {
-          "input_memory_bytes": 67108864,
-          "qkv_memory_bytes": 201326592,
-          "attention_matrix_memory_bytes": 536870912,
-          "output_memory_bytes": 67108864,
-          "kv_cache_memory_bytes": 134217728,
-          "total_theoretical_bytes": 1006632960,
-          "total_theoretical_mb": 960.0,
-          "attention_matrix_dominance": 0.5333333333333333
-        },
-        "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
-        },
-        "profile_data": {
-          "timestamps": [
-            2.199597656726837e-05
-          ],
-          "memory_usage_bytes": [
-            0.0
-          ],
-          "memory_usage_mb": [
-            0.0
-          ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
-          "memory_delta_bytes": 0,
-          "memory_delta_mb": 0.0,
-          "sample_count": 1,
-          "duration_seconds": 0.0
-        },
         "batch_size": 4,
         "seq_len": 1024,
         "num_heads": 32,
         "num_kv_heads": 32,
         "head_dim": 256,
-        "width": 8192
-      },
-      {
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -411,36 +362,85 @@
           "attention_matrix_dominance": 0.5333333333333333
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.013219692177402072,
+          "overhead_bytes": 75139842048,
+          "overhead_mb": 71658.9375,
+          "overhead_ratio": 74.6447265625
         },
         "profile_data": {
           "timestamps": [
-            2.7447938919067383e-05
+            9.943544864654541e-05
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
+        }
+      },
+      {
         "batch_size": 4,
         "seq_len": 1024,
         "num_heads": 32,
         "num_kv_heads": 8,
         "head_dim": 256,
-        "width": 8192
+        "width": 8192,
+        "baseline_memory": {
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
+        },
+        "final_memory": {
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 67108864,
+          "qkv_memory_bytes": 201326592,
+          "attention_matrix_memory_bytes": 536870912,
+          "output_memory_bytes": 67108864,
+          "kv_cache_memory_bytes": 134217728,
+          "total_theoretical_bytes": 1006632960,
+          "total_theoretical_mb": 960.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.013219692177402072,
+          "overhead_bytes": 75139842048,
+          "overhead_mb": 71658.9375,
+          "overhead_ratio": 74.6447265625
+        },
+        "profile_data": {
+          "timestamps": [
+            0.0007462464272975922
+          ],
+          "memory_usage_bytes": [
+            76146475008.0
+          ],
+          "memory_usage_mb": [
+            72618.9375
+          ],
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        }
       }
     ],
     "memory_scaling": {
@@ -472,7 +472,7 @@
       "memory_breakdown": {
         "attention_matrix_dominance": 0.4484848484848485,
         "largest_attention_matrix_mb": 512.0,
-        "attention_memory_ratio": Infinity
+        "attention_memory_ratio": 0.0
       },
       "bottleneck_analysis": {
         "memory_bound_threshold_mb": 1000,
@@ -481,19 +481,25 @@
       }
     }
   },
-  "gemma_fast": {
-    "module_name": "gemma_fast",
+  "gemma_fast_H32_KV8": {
+    "module_name": "gemma_fast_H32_KV8",
     "configurations": [
       {
+        "batch_size": 1,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -508,47 +514,47 @@
           "attention_matrix_dominance": 0.36363636363636365
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.0012118051162618565,
+          "overhead_bytes": 76054200320,
+          "overhead_mb": 72530.9375,
+          "overhead_ratio": 824.2151988636364
         },
         "profile_data": {
           "timestamps": [
-            1.6771256923675537e-05
+            0.0003100298345088959
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
+        }
+      },
+      {
         "batch_size": 1,
         "seq_len": 512,
         "num_heads": 32,
-        "num_kv_heads": 32,
+        "num_kv_heads": 8,
         "head_dim": 256,
-        "width": 8192
-      },
-      {
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -563,47 +569,47 @@
           "attention_matrix_dominance": 0.36363636363636365
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.0012118051162618565,
+          "overhead_bytes": 76054200320,
+          "overhead_mb": 72530.9375,
+          "overhead_ratio": 824.2151988636364
         },
         "profile_data": {
           "timestamps": [
-            2.2273510694503784e-05
+            0.0012239348143339157
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
-        "batch_size": 1,
-        "seq_len": 512,
-        "num_heads": 32,
-        "num_kv_heads": 8,
-        "head_dim": 256,
-        "width": 8192
+        }
       },
       {
+        "batch_size": 4,
+        "seq_len": 512,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -618,47 +624,47 @@
           "attention_matrix_dominance": 0.36363636363636365
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.004847220465047426,
+          "overhead_bytes": 75777376256,
+          "overhead_mb": 72266.9375,
+          "overhead_ratio": 205.3037997159091
         },
         "profile_data": {
           "timestamps": [
-            2.2821128368377686e-05
+            0.00026603788137435913
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
+        }
+      },
+      {
         "batch_size": 4,
         "seq_len": 512,
         "num_heads": 32,
-        "num_kv_heads": 32,
+        "num_kv_heads": 8,
         "head_dim": 256,
-        "width": 8192
-      },
-      {
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -673,47 +679,47 @@
           "attention_matrix_dominance": 0.36363636363636365
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.004847220465047426,
+          "overhead_bytes": 75777376256,
+          "overhead_mb": 72266.9375,
+          "overhead_ratio": 205.3037997159091
         },
         "profile_data": {
           "timestamps": [
-            2.5212764739990234e-05
+            0.00015559233725070953
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
-        "batch_size": 4,
-        "seq_len": 512,
-        "num_heads": 32,
-        "num_kv_heads": 8,
-        "head_dim": 256,
-        "width": 8192
+        }
       },
       {
+        "batch_size": 1,
+        "seq_len": 1024,
+        "num_heads": 32,
+        "num_kv_heads": 32,
+        "head_dim": 256,
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -728,47 +734,47 @@
           "attention_matrix_dominance": 0.5333333333333333
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.003304923044350518,
+          "overhead_bytes": 75894816768,
+          "overhead_mb": 72378.9375,
+          "overhead_ratio": 301.57890625
         },
         "profile_data": {
           "timestamps": [
-            1.5651807188987732e-05
+            0.0016863886266946793
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
+        }
+      },
+      {
         "batch_size": 1,
         "seq_len": 1024,
         "num_heads": 32,
-        "num_kv_heads": 32,
+        "num_kv_heads": 8,
         "head_dim": 256,
-        "width": 8192
-      },
-      {
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -783,102 +789,47 @@
           "attention_matrix_dominance": 0.5333333333333333
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.003304923044350518,
+          "overhead_bytes": 75894816768,
+          "overhead_mb": 72378.9375,
+          "overhead_ratio": 301.57890625
         },
         "profile_data": {
           "timestamps": [
-            2.185814082622528e-05
+            0.00046602822840213776
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
-        "batch_size": 1,
-        "seq_len": 1024,
-        "num_heads": 32,
-        "num_kv_heads": 8,
-        "head_dim": 256,
-        "width": 8192
+        }
       },
       {
-        "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
-        },
-        "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
-        },
-        "memory_delta_bytes": 0.0,
-        "memory_delta_mb": 0.0,
-        "theoretical_memory": {
-          "input_memory_bytes": 67108864,
-          "qkv_memory_bytes": 201326592,
-          "attention_matrix_memory_bytes": 536870912,
-          "output_memory_bytes": 67108864,
-          "kv_cache_memory_bytes": 134217728,
-          "total_theoretical_bytes": 1006632960,
-          "total_theoretical_mb": 960.0,
-          "attention_matrix_dominance": 0.5333333333333333
-        },
-        "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
-        },
-        "profile_data": {
-          "timestamps": [
-            2.2219493985176086e-05
-          ],
-          "memory_usage_bytes": [
-            0.0
-          ],
-          "memory_usage_mb": [
-            0.0
-          ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
-          "memory_delta_bytes": 0,
-          "memory_delta_mb": 0.0,
-          "sample_count": 1,
-          "duration_seconds": 0.0
-        },
         "batch_size": 4,
         "seq_len": 1024,
         "num_heads": 32,
         "num_kv_heads": 32,
         "head_dim": 256,
-        "width": 8192
-      },
-      {
+        "width": 8192,
         "baseline_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "final_memory": {
-          "total_memory": 0.0,
-          "used_memory": 0.0,
-          "available_memory": 0.0
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
         },
         "memory_delta_bytes": 0.0,
         "memory_delta_mb": 0.0,
@@ -893,36 +844,85 @@
           "attention_matrix_dominance": 0.5333333333333333
         },
         "memory_efficiency": {
-          "efficiency_ratio": 0.0,
-          "overhead_bytes": 0,
-          "overhead_mb": 0.0,
-          "overhead_ratio": 0.0
+          "efficiency_ratio": 0.013219692177402072,
+          "overhead_bytes": 75139842048,
+          "overhead_mb": 71658.9375,
+          "overhead_ratio": 74.6447265625
         },
         "profile_data": {
           "timestamps": [
-            2.121739089488983e-05
+            0.0002660602331161499
           ],
           "memory_usage_bytes": [
-            0.0
+            76146475008.0
           ],
           "memory_usage_mb": [
-            0.0
+            72618.9375
           ],
-          "peak_memory_bytes": 0,
-          "peak_memory_mb": 0.0,
-          "average_memory_bytes": 0,
-          "average_memory_mb": 0.0,
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0,
           "sample_count": 1,
           "duration_seconds": 0.0
-        },
+        }
+      },
+      {
         "batch_size": 4,
         "seq_len": 1024,
         "num_heads": 32,
         "num_kv_heads": 8,
         "head_dim": 256,
-        "width": 8192
+        "width": 8192,
+        "baseline_memory": {
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
+        },
+        "final_memory": {
+          "total_memory": 100485038080.0,
+          "used_memory": 76146475008.0,
+          "available_memory": 24338563072.0
+        },
+        "memory_delta_bytes": 0.0,
+        "memory_delta_mb": 0.0,
+        "theoretical_memory": {
+          "input_memory_bytes": 67108864,
+          "qkv_memory_bytes": 201326592,
+          "attention_matrix_memory_bytes": 536870912,
+          "output_memory_bytes": 67108864,
+          "kv_cache_memory_bytes": 134217728,
+          "total_theoretical_bytes": 1006632960,
+          "total_theoretical_mb": 960.0,
+          "attention_matrix_dominance": 0.5333333333333333
+        },
+        "memory_efficiency": {
+          "efficiency_ratio": 0.013219692177402072,
+          "overhead_bytes": 75139842048,
+          "overhead_mb": 71658.9375,
+          "overhead_ratio": 74.6447265625
+        },
+        "profile_data": {
+          "timestamps": [
+            0.00014059804379940033
+          ],
+          "memory_usage_bytes": [
+            76146475008.0
+          ],
+          "memory_usage_mb": [
+            72618.9375
+          ],
+          "peak_memory_bytes": 76146475008,
+          "peak_memory_mb": 72618.9375,
+          "average_memory_bytes": 76146475008,
+          "average_memory_mb": 72618.9375,
+          "memory_delta_bytes": 0,
+          "memory_delta_mb": 0.0,
+          "sample_count": 1,
+          "duration_seconds": 0.0
+        }
       }
     ],
     "memory_scaling": {
@@ -954,7 +954,7 @@
       "memory_breakdown": {
         "attention_matrix_dominance": 0.4484848484848485,
         "largest_attention_matrix_mb": 512.0,
-        "attention_memory_ratio": Infinity
+        "attention_memory_ratio": 0.0
       },
       "bottleneck_analysis": {
         "memory_bound_threshold_mb": 1000,

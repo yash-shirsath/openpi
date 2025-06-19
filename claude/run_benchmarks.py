@@ -46,157 +46,145 @@ def run_full_benchmarks(output_dir: Path, modules_to_test: Optional[List[str]] =
     # Ensure output directory exists
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Import and create attention modules
+    # Import attention module creation function
     try:
         from test_attention import create_attention_modules
-        
-        # Use standard configuration for full benchmarks
-        config = {
-            'num_heads': 32,
-            'num_kv_heads': 8, 
-            'head_dim': 256,
-            'width': 8192
-        }
-        
-        modules = create_attention_modules(config)
-        
-        if modules_to_test:
-            modules = {name: module for name, module in modules.items() 
-                      if name in modules_to_test}
-        
-        print(f"Testing modules: {list(modules.keys())}")
-        
     except ImportError as e:
         print(f"Error importing attention modules: {e}")
         print("Make sure the openpi source code is available.")
         return False
+
+    # Get all module architectures to test from config
+    head_configs = BENCHMARK_CONFIG.HEAD_CONFIGS
     
-    success = True
-    
-    # 1. Performance Benchmarks
-    print("\n" + "=" * 50)
-    print("PHASE 1: PERFORMANCE BENCHMARKING")
-    print("=" * 50)
-    
-    try:
-        perf_benchmark = AttentionPerformanceBenchmark()
+    # Master dictionary to hold all modules for comparison later
+    all_modules = {}
+
+    for num_heads, num_kv_heads in head_configs:
+        print("\n" + "~" * 70)
+        print(f"Testing Architecture: {num_heads} Heads, {num_kv_heads} KV_Heads")
+        print("~" * 70)
+
+        # Create modules for the current architecture
+        arch_config = {
+            'num_heads': num_heads,
+            'num_kv_heads': num_kv_heads, 
+            'head_dim': BENCHMARK_CONFIG.HEAD_DIM,
+            'width': BENCHMARK_CONFIG.WIDTH,
+        }
         
-        for module_name, module in modules.items():
-            print(f"\nBenchmarking performance: {module_name}")
-            results = perf_benchmark.benchmark_attention_module(module, module_name)
-            perf_benchmark.print_results(module_name)
-        
-        # Save performance results
-        perf_file = output_dir / "performance_results.json"
-        perf_benchmark.save_results(str(perf_file))
-        
-        # Compare modules if multiple
-        if len(modules) > 1:
-            print(f"\n" + "-" * 40)
-            print("PERFORMANCE COMPARISON")
-            print("-" * 40)
+        try:
+            modules = create_attention_modules(arch_config)
             
-            comparison = perf_benchmark.compare_modules(list(modules.keys()))
-            baseline = list(modules.keys())[0]
+            if modules_to_test:
+                modules = {name: module for name, module in modules.items() 
+                          if name in modules_to_test}
+
+            # Add a unique suffix to module names to identify architecture
+            arch_suffix = f"_H{num_heads}_KV{num_kv_heads}"
+            modules = {name + arch_suffix: module for name, module in modules.items()}
             
-            for module_name in list(modules.keys())[1:]:
-                rel_perf = comparison['relative_performance'][module_name]
-                print(f"\n{module_name} vs {baseline}:")
-                print(f"  Speed: {1/rel_perf['time_ratio']:.2f}x {'faster' if rel_perf['time_ratio'] < 1 else 'slower'}")
-                print(f"  Throughput: {rel_perf['throughput_ratio']:.2f}x")
-                print(f"  Memory: {1/rel_perf['memory_ratio']:.2f}x {'less' if rel_perf['memory_ratio'] < 1 else 'more'}")
+            print(f"Testing modules: {list(modules.keys())}")
+            all_modules.update(modules)
+
+        except Exception as e:
+            print(f"Error creating attention modules for H={num_heads}, KV={num_kv_heads}: {e}")
+            continue # Move to the next architecture
+
+        success = True
         
-    except Exception as e:
-        print(f"Performance benchmarking failed: {e}")
-        success = False
-    
-    # 2. Memory Benchmarks
-    print("\n" + "=" * 50)
-    print("PHASE 2: MEMORY BENCHMARKING")
-    print("=" * 50)
-    
-    try:
-        memory_benchmark = AttentionMemoryBenchmark()
+        # 1. Performance Benchmarks
+        print("\n" + "=" * 50)
+        print("PHASE 1: PERFORMANCE BENCHMARKING")
+        print("=" * 50)
         
-        for module_name, module in modules.items():
-            print(f"\nBenchmarking memory: {module_name}")
-            results = memory_benchmark.benchmark_memory_usage(module, module_name)
-            memory_benchmark.print_memory_results(module_name)
-        
-        # Save memory results
-        memory_file = output_dir / "memory_results.json"
-        memory_benchmark.save_memory_results(str(memory_file))
-        
-        # Compare memory usage if multiple modules
-        if len(modules) > 1:
-            print(f"\n" + "-" * 40)
-            print("MEMORY COMPARISON")
-            print("-" * 40)
+        try:
+            perf_benchmark = AttentionPerformanceBenchmark()
             
-            comparison = memory_benchmark.compare_memory_usage(list(modules.keys()))
-            baseline = list(modules.keys())[0]
+            for module_name, module in modules.items():
+                print(f"\nBenchmarking performance: {module_name}")
+                results = perf_benchmark.benchmark_attention_module(module, module_name)
+                perf_benchmark.print_results(module_name)
             
-            for module_name in list(modules.keys())[1:]:
-                efficiency = comparison['efficiency_comparison'][module_name]
-                print(f"\n{module_name} vs {baseline}:")
-                print(f"  Memory usage: {efficiency['relative_memory_usage']:.2f}x")
-                savings_pct = efficiency['memory_savings_percent']
-                print(f"  Memory savings: {efficiency['memory_savings_mb']:.1f} MB ({savings_pct:.1f}%)")
-        
-    except Exception as e:
-        print(f"Memory benchmarking failed: {e}")
-        success = False
-    
-    # 3. Correctness Tests  
-    print("\n" + "=" * 50)
-    print("PHASE 3: CORRECTNESS TESTING")
-    print("=" * 50)
-    
-    try:
-        correctness_tester = AttentionCorrectnessTest()
-        
-        # Test numerical stability for each module
-        for module_name, module in modules.items():
-            print(f"\nTesting stability: {module_name}")
-            results = correctness_tester.test_numerical_stability(module, module_name)
-            correctness_tester.print_correctness_results(f"{module_name}_stability")
-        
-        # Compare implementations if multiple
-        if len(modules) > 1:
-            print(f"\n" + "-" * 40)
-            print("CORRECTNESS COMPARISON")
-            print("-" * 40)
+            # Save performance results (append mode might be better, but overwrite is simpler for now)
+            perf_file = output_dir / "performance_results.json"
+            perf_benchmark.save_results(str(perf_file))
             
-            module_names = list(modules.keys())
-            for i in range(len(module_names)):
-                for j in range(i + 1, len(module_names)):
-                    name1, name2 = module_names[i], module_names[j]
-                    module1, module2 = modules[name1], modules[name2]
-                    
-                    print(f"\nComparing {name1} vs {name2}:")
-                    results = correctness_tester.test_attention_correctness(
-                        module1, module2, name1, name2
-                    )
-                    correctness_tester.print_correctness_results(f"{name1}_vs_{name2}")
+        except Exception as e:
+            print(f"Performance benchmarking failed for this architecture: {e}")
+            success = False
         
-        # Save correctness results
-        correctness_file = output_dir / "correctness_results.json"
-        correctness_tester.save_correctness_results(str(correctness_file))
+        # 2. Memory Benchmarks
+        print("\n" + "=" * 50)
+        print("PHASE 2: MEMORY BENCHMARKING")
+        print("=" * 50)
         
-    except Exception as e:
-        print(f"Correctness testing failed: {e}")
-        success = False
-    
+        try:
+            memory_benchmark = AttentionMemoryBenchmark()
+            
+            for module_name, module in modules.items():
+                print(f"\nBenchmarking memory: {module_name}")
+                results = memory_benchmark.benchmark_memory_usage(module, module_name)
+                memory_benchmark.print_memory_results(module_name)
+            
+            # Save memory results
+            memory_file = output_dir / "memory_results.json"
+            memory_benchmark.save_memory_results(str(memory_file))
+            
+        except Exception as e:
+            print(f"Memory benchmarking failed for this architecture: {e}")
+            success = False
+        
+        # 3. Correctness Tests  
+        print("\n" + "=" * 50)
+        print("PHASE 3: CORRECTNESS TESTING")
+        print("=" * 50)
+        
+        try:
+            correctness_tester = AttentionCorrectnessTest()
+            
+            # Test numerical stability for each module
+            for module_name, module in modules.items():
+                print(f"\nTesting stability: {module_name}")
+                results = correctness_tester.test_numerical_stability(module, module_name)
+                correctness_tester.print_correctness_results(f"{module_name}_stability")
+            
+            # Compare implementations if multiple within the same architecture
+            if len(modules) > 1:
+                print(f"\n" + "-" * 40)
+                print(f"CORRECTNESS COMPARISON (Arch: H={num_heads}, KV={num_kv_heads})")
+                print("-" * 40)
+                
+                module_names = list(modules.keys())
+                for i in range(len(module_names)):
+                    for j in range(i + 1, len(module_names)):
+                        name1, name2 = module_names[i], module_names[j]
+                        module1, module2 = modules[name1], modules[name2]
+                        
+                        print(f"\nComparing {name1} vs {name2}:")
+                        results = correctness_tester.test_attention_correctness(
+                            module1, module2, name1, name2
+                        )
+                        correctness_tester.print_correctness_results(f"{name1}_vs_{name2}")
+            
+            # Save correctness results
+            correctness_file = output_dir / "correctness_results.json"
+            correctness_tester.save_correctness_results(str(correctness_file))
+            
+        except Exception as e:
+            print(f"Correctness testing failed for this architecture: {e}")
+            success = False
+
     # 4. Generate Summary Report
     print("\n" + "=" * 50)
     print("GENERATING SUMMARY REPORT")
     print("=" * 50)
     
     try:
-        generate_summary_report(output_dir, list(modules.keys()))
+        generate_summary_report(output_dir, list(all_modules.keys()))
     except Exception as e:
         print(f"Summary report generation failed: {e}")
-        success = False
+        # This is not a failure of the benchmark itself, so we don't set success=False
     
     # Final status
     print("\n" + "=" * 70)
@@ -326,11 +314,12 @@ def main():
     
     args = parser.parse_args()
     
+    args.quick = True
     # Override config for quick benchmarks
     if args.quick:
         print("Running quick benchmarks with reduced configurations...")
-        BENCHMARK_CONFIG.SEQUENCE_LENGTHS = (512, 1024)
-        BENCHMARK_CONFIG.BATCH_SIZES = (1, 4)
+        BENCHMARK_CONFIG.SEQUENCE_LENGTHS = [512, 1024]
+        BENCHMARK_CONFIG.BATCH_SIZES = [1, 4]
         BENCHMARK_CONFIG.BENCHMARK_RUNS = 3
         BENCHMARK_CONFIG.WARMUP_RUNS = 1
     

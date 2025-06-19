@@ -1,6 +1,6 @@
 """Configuration constants for attention benchmarking."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Tuple
 
 @dataclass
@@ -8,9 +8,9 @@ class BenchmarkConfig:
     """Configuration for attention benchmarking."""
     
     # Test configurations from implementation plan
-    SEQUENCE_LENGTHS: List[int] = (512, 1024, 2048, 4096, 8192)
-    BATCH_SIZES: List[int] = (1, 4, 8, 16) 
-    HEAD_CONFIGS: List[Tuple[int, int]] = ((32, 32), (32, 8))  # (num_heads, num_kv_heads)
+    SEQUENCE_LENGTHS: List[int] = field(default_factory=lambda: [512, 1024, 2048, 4096, 8192])
+    BATCH_SIZES: List[int] = field(default_factory=lambda: [1, 4, 8, 16])
+    HEAD_CONFIGS: List[Tuple[int, int]] = field(default_factory=lambda: [(32, 32), (32, 8)])  # (num_heads, num_kv_heads)
     
     # Model parameters
     HEAD_DIM: int = 256

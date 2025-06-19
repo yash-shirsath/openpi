@@ -1,6 +1,6 @@
 {
-  "gemma_stability": {
-    "module_name": "gemma",
+  "gemma_H32_KV8_stability": {
+    "module_name": "gemma_H32_KV8",
     "stability_tests": [
       {
         "all_scales_stable": true,
@@ -319,8 +319,8 @@
       }
     }
   },
-  "gemma_fast_stability": {
-    "module_name": "gemma_fast",
+  "gemma_fast_H32_KV8_stability": {
+    "module_name": "gemma_fast_H32_KV8",
     "stability_tests": [
       {
         "all_scales_stable": true,
@@ -639,9 +639,9 @@
       }
     }
   },
-  "gemma_vs_gemma_fast": {
-    "module_1": "gemma",
-    "module_2": "gemma_fast",
+  "gemma_H32_KV8_vs_gemma_fast_H32_KV8": {
+    "module_1": "gemma_H32_KV8",
+    "module_2": "gemma_fast_H32_KV8",
     "configuration_tests": [
       {
         "passed": false,

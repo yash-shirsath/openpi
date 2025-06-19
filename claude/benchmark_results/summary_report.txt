@@ -1,32 +1,32 @@
 Flash Attention Benchmarking Summary Report
 ==================================================
 
-Tested modules: gemma, gemma_fast
+Tested modules: gemma_H32_KV32, gemma_fast_H32_KV32, gemma_H32_KV8, gemma_fast_H32_KV8
 JAX backend: gpu
 JAX devices: [CudaDevice(id=0)]
 
 PERFORMANCE SUMMARY
 --------------------
 
-gemma:
-  Average time: 0.0185s
-  Peak throughput: 366024.9 tokens/sec
+gemma_H32_KV8:
+  Average time: 0.0374s
+  Peak throughput: 105514.1 tokens/sec
   Peak memory: 0.0 MB
 
-gemma_fast:
-  Average time: 0.0159s
-  Peak throughput: 219845.3 tokens/sec
+gemma_fast_H32_KV8:
+  Average time: 0.0216s
+  Peak throughput: 178360.8 tokens/sec
   Peak memory: 0.0 MB
 
 
 MEMORY SUMMARY
 ---------------
 
-gemma:
+gemma_H32_KV8:
   Peak memory: 0.0 MB
   Average memory: 0.0 MB
 
-gemma_fast:
+gemma_fast_H32_KV8:
   Peak memory: 0.0 MB
   Average memory: 0.0 MB
 
@@ -34,14 +34,14 @@ gemma_fast:
 CORRECTNESS SUMMARY
 --------------------
 
-gemma:
+gemma_H32_KV8:
   All stability tests passed: True
   Average pass rate: 100.0%
   Deterministic: 100.0%
   Numerically stable: 100.0%
   Gradient computation: 100.0%
 
-gemma_fast:
+gemma_fast_H32_KV8:
   All stability tests passed: True
   Average pass rate: 100.0%
   Deterministic: 100.0%
