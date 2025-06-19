@@ -12,6 +12,20 @@
             ],
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "Debug Flash Attention Benchmarks",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src:${workspaceFolder}/claude",
+                "JAX_PTXAS_PATH": "${workspaceFolder}/.venv/lib/python3.11/site-packages/nvidia/cuda_nvcc/bin/ptxas"
+            }
         }
     ]
 }
