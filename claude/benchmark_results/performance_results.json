@@ -3,14 +3,14 @@
     "module_name": "gemma",
     "configurations": [
       {
-        "mean_time": 0.02257773590584596,
-        "std_time": 0.000373073911705863,
-        "min_time": 0.022243928164243698,
-        "max_time": 0.023098483681678772,
-        "median_time": 0.02239079587161541,
+        "mean_time": 0.02157978092630704,
+        "std_time": 0.0021643312319796796,
+        "min_time": 0.019644150510430336,
+        "max_time": 0.024601006880402565,
+        "median_time": 0.020494185388088226,
         "theoretical_flops": 4320133120,
-        "tokens_per_second": 22677.207410661136,
-        "flops_per_second": 191344833601.3801,
+        "tokens_per_second": 23725.91277679939,
+        "flops_per_second": 200193557791.56683,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -23,14 +23,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.01979546993970871,
-        "std_time": 0.00029087091435154374,
-        "min_time": 0.01938670687377453,
-        "max_time": 0.020039768889546394,
-        "median_time": 0.019959934055805206,
+        "mean_time": 0.017668212453524273,
+        "std_time": 4.667583413261893e-05,
+        "min_time": 0.017631808295845985,
+        "max_time": 0.01773410104215145,
+        "median_time": 0.01763872802257538,
         "theoretical_flops": 4320133120,
-        "tokens_per_second": 25864.50342221752,
-        "flops_per_second": 218238472395.85013,
+        "tokens_per_second": 28978.59652450984,
+        "flops_per_second": 244514442610.64816,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -43,14 +43,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.025932973250746727,
-        "std_time": 0.002916035028171746,
-        "min_time": 0.023720640689134598,
-        "max_time": 0.030053120106458664,
-        "median_time": 0.02402515895664692,
+        "mean_time": 0.02338613321383794,
+        "std_time": 0.0012052784018921024,
+        "min_time": 0.02178909257054329,
+        "max_time": 0.02470054104924202,
+        "median_time": 0.023668766021728516,
         "theoretical_flops": 17280532480,
-        "tokens_per_second": 78972.81889730977,
-        "flops_per_second": 666353692378.9645,
+        "tokens_per_second": 87573.26323567533,
+        "flops_per_second": 738922177599.4519,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -63,14 +63,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.021870778873562813,
-        "std_time": 0.0013652563599322316,
-        "min_time": 0.02075912430882454,
-        "max_time": 0.023793740198016167,
-        "median_time": 0.021059472113847733,
+        "mean_time": 0.019548490643501282,
+        "std_time": 0.000983160436199656,
+        "min_time": 0.018164390698075294,
+        "max_time": 0.02035502716898918,
+        "median_time": 0.02012605406343937,
         "theoretical_flops": 17280532480,
-        "tokens_per_second": 93640.92663730429,
-        "flops_per_second": 790119665143.1807,
+        "tokens_per_second": 104765.12163259208,
+        "flops_per_second": 883982952706.6201,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -83,14 +83,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.0233632226785024,
-        "std_time": 0.0016170265059689132,
-        "min_time": 0.022107910364866257,
-        "max_time": 0.025646265596151352,
-        "median_time": 0.022335492074489594,
+        "mean_time": 0.022796619062622387,
+        "std_time": 0.0037869296677314154,
+        "min_time": 0.01873423531651497,
+        "max_time": 0.027850067242980003,
+        "median_time": 0.021805554628372192,
         "theoretical_flops": 17280532480,
-        "tokens_per_second": 43829.56983679441,
-        "flops_per_second": 739646782372.221,
+        "tokens_per_second": 44918.94158458623,
+        "flops_per_second": 758030497089.5167,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -103,14 +103,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.01947101205587387,
-        "std_time": 0.0007501321026591852,
-        "min_time": 0.018473228439688683,
-        "max_time": 0.020281942561268806,
-        "median_time": 0.019657865166664124,
+        "mean_time": 0.020055778324604034,
+        "std_time": 0.0010534608275633776,
+        "min_time": 0.019067838788032532,
+        "max_time": 0.021515486761927605,
+        "median_time": 0.019584009423851967,
         "theoretical_flops": 17280532480,
-        "tokens_per_second": 52591.000255227475,
-        "flops_per_second": 887500476627.0963,
+        "tokens_per_second": 51057.60461780618,
+        "flops_per_second": 861623627879.8805,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -123,14 +123,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.03325292902688185,
-        "std_time": 0.006805838045226865,
-        "min_time": 0.027164647355675697,
-        "max_time": 0.04275297932326794,
-        "median_time": 0.029841160401701927,
+        "mean_time": 0.012056947375337282,
+        "std_time": 0.0009655545773301794,
+        "min_time": 0.011362878605723381,
+        "max_time": 0.013422384858131409,
+        "median_time": 0.011385578662157059,
         "theoretical_flops": 69122129920,
-        "tokens_per_second": 123177.11912501816,
-        "flops_per_second": 2078677937336.6265,
+        "tokens_per_second": 339721.1476910355,
+        "flops_per_second": 5732971022283.023,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -143,14 +143,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.01134887399772803,
-        "std_time": 0.00018111282817726416,
-        "min_time": 0.011124799028038979,
-        "max_time": 0.011568361893296242,
-        "median_time": 0.01135346107184887,
+        "mean_time": 0.01119049700597922,
+        "std_time": 0.00013467573085574098,
+        "min_time": 0.011026384308934212,
+        "max_time": 0.011356258764863014,
+        "median_time": 0.011188847944140434,
         "theoretical_flops": 69122129920,
-        "tokens_per_second": 360916.8628376694,
-        "flops_per_second": 6090659737154.347,
+        "tokens_per_second": 366024.851068854,
+        "flops_per_second": 6176859694709.467,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -166,15 +166,15 @@
     "summary_stats": {
       "total_configs": 8,
       "time_stats": {
-        "mean": 0.022201624466106296,
-        "std": 0.00579528409295664,
-        "min": 0.01134887399772803,
-        "max": 0.03325292902688185
+        "mean": 0.018535307375714183,
+        "std": 0.004344014866910677,
+        "min": 0.01119049700597922,
+        "max": 0.02338613321383794
       },
       "throughput_stats": {
-        "mean_tokens_per_sec": 100208.75105277527,
-        "max_tokens_per_sec": 360916.8628376694,
-        "min_tokens_per_sec": 22677.207410661136
+        "mean_tokens_per_sec": 130845.67989148232,
+        "max_tokens_per_sec": 366024.851068854,
+        "min_tokens_per_sec": 23725.91277679939
       },
       "memory_stats": {
         "mean_memory_mb": 0.0,
@@ -187,14 +187,14 @@
     "module_name": "gemma_fast",
     "configurations": [
       {
-        "mean_time": 0.008292806645234426,
-        "std_time": 0.0019268890289798135,
-        "min_time": 0.006748132407665253,
-        "max_time": 0.011009324342012405,
-        "median_time": 0.0071209631860256195,
+        "mean_time": 0.007061866422494252,
+        "std_time": 0.0008319804039401247,
+        "min_time": 0.006451364606618881,
+        "max_time": 0.008238181471824646,
+        "median_time": 0.00649605318903923,
         "theoretical_flops": 4320133120,
-        "tokens_per_second": 61740.25536869688,
-        "flops_per_second": 520949457139.7758,
+        "tokens_per_second": 72502.07938925606,
+        "flops_per_second": 611755145387.4893,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -207,14 +207,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.006176825612783432,
-        "std_time": 0.00032146548348784665,
-        "min_time": 0.005722224712371826,
-        "max_time": 0.006407814100384712,
-        "median_time": 0.006400438025593758,
+        "mean_time": 0.009356485679745674,
+        "std_time": 0.00013000053234154608,
+        "min_time": 0.009191988036036491,
+        "max_time": 0.009509837254881859,
+        "median_time": 0.009367631748318672,
         "theoretical_flops": 4320133120,
-        "tokens_per_second": 82890.47353714751,
-        "flops_per_second": 699409921992.8018,
+        "tokens_per_second": 54721.400483553894,
+        "flops_per_second": 461726044144.1117,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -227,14 +227,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.007728561758995056,
-        "std_time": 0.0005998702073837794,
-        "min_time": 0.007076216861605644,
-        "max_time": 0.008524416014552116,
-        "median_time": 0.007585052400827408,
+        "mean_time": 0.024771546944975853,
+        "std_time": 0.0019293818316803988,
+        "min_time": 0.0232996828854084,
+        "max_time": 0.027497198432683945,
+        "median_time": 0.023517759516835213,
         "theoretical_flops": 17280532480,
-        "tokens_per_second": 264991.08939854044,
-        "flops_per_second": 2235931214483.4287,
+        "tokens_per_second": 82675.49881116221,
+        "flops_per_second": 697596016848.8721,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -247,14 +247,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.006608853116631508,
-        "std_time": 0.00017418006051517202,
-        "min_time": 0.0063976868987083435,
-        "max_time": 0.006824275478720665,
-        "median_time": 0.006604596972465515,
+        "mean_time": 0.015804825350642204,
+        "std_time": 0.0007664372748470493,
+        "min_time": 0.015083497390151024,
+        "max_time": 0.016866134479641914,
+        "median_time": 0.015464844182133675,
         "theoretical_flops": 17280532480,
-        "tokens_per_second": 309887.353199923,
-        "flops_per_second": 2614755113336.182,
+        "tokens_per_second": 129580.67897389215,
+        "flops_per_second": 1093370669818.7483,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -267,14 +267,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.007208814223607381,
-        "std_time": 0.0015166951382182426,
-        "min_time": 0.006058327853679657,
-        "max_time": 0.009351804852485657,
-        "median_time": 0.00621630996465683,
+        "mean_time": 0.01786741428077221,
+        "std_time": 0.0022233509341361606,
+        "min_time": 0.014979872852563858,
+        "max_time": 0.020388919860124588,
+        "median_time": 0.01823345012962818,
         "theoretical_flops": 17280532480,
-        "tokens_per_second": 142048.32698373764,
-        "flops_per_second": 2397139382980.604,
+        "tokens_per_second": 57311.034708696745,
+        "flops_per_second": 967153512447.3062,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -287,14 +287,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.0058556242535511656,
-        "std_time": 3.5240399468881295e-05,
-        "min_time": 0.005821907892823219,
-        "max_time": 0.005904266610741615,
-        "median_time": 0.005840698257088661,
+        "mean_time": 0.014156353349486986,
+        "std_time": 0.0018061113186890454,
+        "min_time": 0.012868056073784828,
+        "max_time": 0.016710547730326653,
+        "median_time": 0.01289045624434948,
         "theoretical_flops": 17280532480,
-        "tokens_per_second": 174874.60869419537,
-        "flops_per_second": 2951099956511.068,
+        "tokens_per_second": 72335.01274797643,
+        "flops_per_second": 1220690954328.7312,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -307,14 +307,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.01926831031839053,
-        "std_time": 0.0012780684846148524,
-        "min_time": 0.01776336506009102,
-        "max_time": 0.020887698978185654,
-        "median_time": 0.019153866916894913,
+        "mean_time": 0.019362594932317734,
+        "std_time": 0.001658494135682117,
+        "min_time": 0.017072563990950584,
+        "max_time": 0.02094661258161068,
+        "median_time": 0.020068608224391937,
         "theoretical_flops": 69122129920,
-        "tokens_per_second": 212577.02062700308,
-        "flops_per_second": 3587347763131.4033,
+        "tokens_per_second": 211541.8937553378,
+        "flops_per_second": 3569879458906.078,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -327,14 +327,14 @@
         "width": 8192
       },
       {
-        "mean_time": 0.017294704914093018,
-        "std_time": 0.0012390245607419783,
-        "min_time": 0.016305791214108467,
-        "max_time": 0.019041882827878,
-        "median_time": 0.016536440700292587,
+        "mean_time": 0.018631286298235256,
+        "std_time": 0.0017071346568064648,
+        "min_time": 0.017170116305351257,
+        "max_time": 0.021026263013482094,
+        "median_time": 0.01769747957587242,
         "theoretical_flops": 69122129920,
-        "tokens_per_second": 236835.49504578556,
-        "flops_per_second": 3996722133355.055,
+        "tokens_per_second": 219845.26105360588,
+        "flops_per_second": 3710003099815.3467,
         "memory_usage": {
           "memory_delta_bytes": 0,
           "memory_delta_mb": 0.0
@@ -350,15 +350,15 @@
     "summary_stats": {
       "total_configs": 8,
       "time_stats": {
-        "mean": 0.009804312605410814,
-        "std": 0.004974497415185053,
-        "min": 0.0058556242535511656,
-        "max": 0.01926831031839053
+        "mean": 0.01587654665733377,
+        "std": 0.005315069364928514,
+        "min": 0.007061866422494252,
+        "max": 0.024771546944975853
       },
       "throughput_stats": {
-        "mean_tokens_per_sec": 185730.5778568787,
-        "max_tokens_per_sec": 309887.353199923,
-        "min_tokens_per_sec": 61740.25536869688
+        "mean_tokens_per_sec": 112564.10749043516,
+        "max_tokens_per_sec": 219845.26105360588,
+        "min_tokens_per_sec": 54721.400483553894
       },
       "memory_stats": {
         "mean_memory_mb": 0.0,

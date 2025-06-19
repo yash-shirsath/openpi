@@ -9,13 +9,13 @@ PERFORMANCE SUMMARY
 --------------------
 
 gemma:
-  Average time: 0.0222s
-  Peak throughput: 360916.9 tokens/sec
+  Average time: 0.0185s
+  Peak throughput: 366024.9 tokens/sec
   Peak memory: 0.0 MB
 
 gemma_fast:
-  Average time: 0.0098s
-  Peak throughput: 309887.4 tokens/sec
+  Average time: 0.0159s
+  Peak throughput: 219845.3 tokens/sec
   Peak memory: 0.0 MB
 
 
