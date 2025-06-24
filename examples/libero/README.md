@@ -44,6 +44,32 @@ Terminal window 2:
 uv run scripts/serve_policy.py --env LIBERO
 ```
 
+## Troubleshooting
+
+### EGL Rendering Issues in Containers
+
+If you encounter errors like:
+```
+ImportError: Cannot initialize a EGL device display. This likely means that your EGL driver does not support the PLATFORM_DEVICE extension, which is required for creating a headless rendering context.
+```
+
+This typically happens when running in containerized environments without proper GPU device access. Here's how to fix it:
+
+**Option 1: Use Software Rendering (Recommended for containers)**
+
+```bash
+# Install OSMesa libraries for software rendering
+apt-get update && apt-get install -y libosmesa6-dev
+
+# Set environment variables to use OSMesa
+export PYOPENGL_PLATFORM=osmesa
+export MUJOCO_GL=osmesa
+
+# Then run normally
+source examples/libero/.venv/bin/activate
+export PYTHONPATH=$PYTHONPATH:$PWD/third_party/libero
+python examples/libero/main.py
+```
 ## Results
 
 If you follow the training instructions and hyperparameters in the `pi0_libero` and `pi0_fast_libero` configs, you should get results similar to the following:

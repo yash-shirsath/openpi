@@ -8,7 +8,7 @@
             "program": "${workspaceFolder}/scripts/serve_policy.py",
             "args": [
                 "--env",
-                "DROID"
+                "LIBERO"
             ],
             "console": "integratedTerminal",
             "justMyCode": true
