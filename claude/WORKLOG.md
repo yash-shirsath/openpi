@@ -1,5 +1,65 @@
 # Work Log
 
+## 2025-06-24 01:32 EST - Gemma Fast Attention Hook Implementation
+
+### Completed Work
+
+Successfully implemented a simple JAX hook to capture inputs to the gemma_fast attention block and save them to disk.
+
+### Key Components Created:
+
+1. **Modified Gemma Fast (`gemma_fast_with_hooks.py`)**:
+   - Copied original `gemma_fast.py` to claude/ directory
+   - Added boolean flag `CAPTURE_ATTENTION_INPUTS` for easy enable/disable
+   - Implemented `_save_attention_inputs()` function using `jax.debug.callback()`
+   - Added hook call at the beginning of `Attention.__call__` method
+
+2. **Hook Implementation Details**:
+   - Uses `jax.debug.callback()` for JAX-compatible file I/O operations
+   - Saves comprehensive data dictionary including:
+     - Input tensor `x` (shape: B×S×D)
+     - Position encodings `positions`
+     - Attention mask `attn_mask`
+     - KV cache components (`idx`, `k_cache`, `v_cache`)
+     - Decode flag
+     - Rich metadata (timestamp, step counter, tensor shapes)
+
+3. **Data Storage**:
+   - Files saved as compressed `.npz` format: `attention_inputs_{timestamp}_{step}.npz`
+   - Automatic directory creation: `claude/attention_captures/`
+   - Global step counter for tracking sequential calls
+
+4. **Testing Infrastructure**:
+   - `test_hook.py`: Simple test script to verify functionality
+   - `inspect_captured_inputs.py`: Utility to examine saved data
+   - Successfully tested both enabled and disabled states
+
+### Design Decisions & Tradeoffs:
+
+1. **Simplicity over Infrastructure**: Chose single-file approach with boolean flag rather than complex configuration system
+2. **JAX Compatibility**: Used `jax.debug.callback()` to ensure compatibility with JAX compilation and transformations
+3. **Zero Overhead**: Simple `if` guard ensures no performance impact when disabled
+4. **Rich Metadata**: Included comprehensive metadata for easy analysis while keeping storage efficient
+5. **Compressed Storage**: Used `.npz` format to balance file size and accessibility
+
+### Verification Results:
+
+- ✅ Hook captures all attention inputs correctly
+- ✅ Zero overhead when disabled
+- ✅ Proper JAX compilation compatibility
+- ✅ Rich metadata and tensor shapes preserved
+- ✅ File organization and naming convention works
+- ✅ Easy to toggle on/off with boolean flag
+
+### Usage:
+
+1. Set `CAPTURE_ATTENTION_INPUTS = True` in `gemma_fast_with_hooks.py`
+2. Replace `gemma_fast` imports with `gemma_fast_with_hooks`
+3. Run model - inputs automatically saved to `claude/attention_captures/`
+4. Use `inspect_captured_inputs.py` to examine saved data
+
+This implementation provides exactly what was requested: a simple, toggleable way to capture and save all inputs to the gemma_fast attention module with minimal complexity and maximum utility.
+
 ## 2025-01-19T17:00:00-05:00 - Fixed divide by zero errors in benchmark suite
 
 ### Task
